@@ -15,9 +15,7 @@ class CreateTypeJeusTable extends Migration
     {
         Schema::create('type_jeus', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nom');
-            $table->text('description');
-            $table->string('photo');
+            $table->string('titre');          
             $table->timestamps();
             $table->engine='InnoDB';
             
