@@ -8,6 +8,6 @@ class Message extends Model
 {
      public function users()
     {
-       return $this->belongTo('app\Models\Commentaires');
+       return $this->hasMany('App\Models\Commentaires');
     }
 }
