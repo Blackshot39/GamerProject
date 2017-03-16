@@ -8,16 +8,16 @@ class News extends Model
 {
     public function categories()
     {
-       return $this->belongTo('app\Models\Categorie');
+       return $this->belongsTo('App\Models\Categorie');
     }
     
-    public function commentaires()
+  /*  public function commentaires() Pourquoi ?
     {
-       return $this->hasMany('app\Models\Commentaire');
+       return $this->hasMany('App\Models\Commentaire');
     }
-    
+    */
      public function users()
     {
-       return $this->belongTo('app\User');
+       return $this->belongsTo('App\User');
     }
 }
