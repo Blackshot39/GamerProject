@@ -18,7 +18,7 @@ class CreateNewsTable extends Migration
             $table->string('titre');
             $table->text('description');
             $table->timestamps();
-            $table->engine="InnoDb";
+            $table->engine="InnoDB";
         });
     }
 
