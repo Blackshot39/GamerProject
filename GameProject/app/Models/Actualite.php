@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class News extends Model
+class Actualite extends Model
 {
-    public function categories()
+     public function categories()
     {
        return $this->belongsTo('App\Models\Categorie');
     }

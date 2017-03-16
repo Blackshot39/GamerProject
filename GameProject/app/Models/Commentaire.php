@@ -11,9 +11,9 @@ class Commentaire extends Model
      	return $this->belongsTo('App\Models\Sujet');
      }
     
-    public function news()
+    public function actualites()
      {
-     	return $this->belongsTo('App\Models\News');
+     	return $this->belongsTo('App\Models\Actualite');
      }
 
     public function users()

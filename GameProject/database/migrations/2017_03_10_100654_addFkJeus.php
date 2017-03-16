@@ -17,6 +17,7 @@ class AddFkJeus extends Migration
             $table->integer('type_jeu_id')->unsigned();
             $table->foreign('type_jeu_id')->references('id')->on('type_jeus');
             $table->engine = "InnoDB";
+        });
     }
 
     /**
