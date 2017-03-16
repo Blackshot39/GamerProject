@@ -18,7 +18,7 @@ class CreateCategoriesTable extends Migration
             $table->string('libelle');
             $table->string('tag');
             $table->timestamps();
-            $table->engine="InnoDb";
+            $table->engine="InnoDB";
         });
     }
 
