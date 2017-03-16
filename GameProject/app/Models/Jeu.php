@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -11,7 +11,7 @@ class Jeu extends Model
      	return $this->hasMany('App\Models\Sujet');
      }
     
-    public function type_jeus()
+    public function typeJeus()
      {
      	return $this->belongsTo('App\Models\Type_Jeu');
      }
