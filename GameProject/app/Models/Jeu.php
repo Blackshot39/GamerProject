@@ -13,7 +13,8 @@ class Jeu extends Model
     
     public function typeJeus()
      {
-     	return $this->belongsTo('App\Models\Type_Jeu');
+     //	return $this->belongsTo('App\Models\Type_Jeu');
+        //faire relation table pivot
      }
 
     public function users()
