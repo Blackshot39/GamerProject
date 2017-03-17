@@ -3,12 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests;
-use App\Models\Actualite;
-use App\Models\Categorie;
-use App\Models\Commentaire;
 
-class ActualiteController extends Controller
+class TypeJeuController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +13,7 @@ class ActualiteController extends Controller
      */
     public function index()
     {
-        $lesActualites=Actualite::all();
-        return view('admin/actualite/index')->with('lesActualites',$lesActualites);
+        
     }
 
     /**
@@ -28,7 +23,7 @@ class ActualiteController extends Controller
      */
     public function create()
     {
-       return view('admin/actualite/create');
+        //
     }
 
     /**
@@ -39,11 +34,7 @@ class ActualiteController extends Controller
      */
     public function store(Request $request)
     {
-       $uneActualite= new actualite;
-        $uneActualite->libelle=$request->get('libelle');
-        $uneActualite->tag=$request->get('tag');
-        $uneActualite->save();
-        return redirect (route('actualite.index'));
+        //
     }
 
     /**
@@ -54,8 +45,7 @@ class ActualiteController extends Controller
      */
     public function show($id)
     {
-        $uneActualite=Actualite::find($id);
-        return view ('admin/actualite/show')->with('uneActualite',$uneActualite);
+        //
     }
 
     /**
@@ -66,8 +56,7 @@ class ActualiteController extends Controller
      */
     public function edit($id)
     {
-       $uneActualite=Actualite::find($id);
-        return view('admin/actualite/update')->with('uneActualite',$uneActualite);
+        //
     }
 
     /**
@@ -79,11 +68,7 @@ class ActualiteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $uneActualite= new actualite;
-        $uneActualite->libelle=$request->get('libelle');
-        $uneActualite->tag=$request->get('tag');
-        $uneActualite->save();
-        return redirect (route('actualite.index'));
+        //
     }
 
     /**
@@ -94,8 +79,6 @@ class ActualiteController extends Controller
      */
     public function destroy($id)
     {
-        $lesActualites=Actualite::destroy($id);
-        $request->session()->flash('success', 'l actualité est supprimée');
-        return redirect (route('actualite.index'));
+        //
     }
 }

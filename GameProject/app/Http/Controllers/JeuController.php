@@ -1,14 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Jeu;
 use Illuminate\Http\Request;
-use App\Http\Requests;
-use App\Models\Actualite;
-use App\Models\Categorie;
-use App\Models\Commentaire;
 
-class ActualiteController extends Controller
+class JeuController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +13,8 @@ class ActualiteController extends Controller
      */
     public function index()
     {
-        $lesActualites=Actualite::all();
-        return view('admin/actualite/index')->with('lesActualites',$lesActualites);
+        $lesJeux = Jeu::all();
+        return view('admin/jeu/index')->with('lesJeux',$lesJeux);
     }
 
     /**
@@ -28,7 +24,7 @@ class ActualiteController extends Controller
      */
     public function create()
     {
-       return view('admin/actualite/create');
+        return view('admin/jeu/create');
     }
 
     /**
@@ -39,11 +35,17 @@ class ActualiteController extends Controller
      */
     public function store(Request $request)
     {
-       $uneActualite= new actualite;
-        $uneActualite->libelle=$request->get('libelle');
-        $uneActualite->tag=$request->get('tag');
-        $uneActualite->save();
-        return redirect (route('actualite.index'));
+        $unJeu= new Jeu();
+        $unJeu->nom=$request->get('nom');
+        $unJeu->description=$request->get('description');
+        $unJeu->dateSortie=$request->get('dateSortie');
+        //
+        //mettre function pour image (jerome)
+        //
+        $unJeu->save();
+        return redirect(route('jeu.index'));
+        
+        
     }
 
     /**
@@ -54,8 +56,8 @@ class ActualiteController extends Controller
      */
     public function show($id)
     {
-        $uneActualite=Actualite::find($id);
-        return view ('admin/actualite/show')->with('uneActualite',$uneActualite);
+         $unJeu=Jeu::find($id);
+        return view ('admin/jeu/show')->with('unJeu',$unJeu);
     }
 
     /**
@@ -66,8 +68,8 @@ class ActualiteController extends Controller
      */
     public function edit($id)
     {
-       $uneActualite=Actualite::find($id);
-        return view('admin/actualite/update')->with('uneActualite',$uneActualite);
+         $unJeu=Jeu::find($id);
+        return view('admin/actualite/update')->with('unJeu',$unJeu);
     }
 
     /**
@@ -79,11 +81,14 @@ class ActualiteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $uneActualite= new actualite;
-        $uneActualite->libelle=$request->get('libelle');
-        $uneActualite->tag=$request->get('tag');
-        $uneActualite->save();
-        return redirect (route('actualite.index'));
+        $unJeu= new Jeu;
+        $unJeu->nom=$request->get('nom');
+        $unJeu->description=$request->get('description');
+        $unJeu->dateSortie=$request->get('dateSortie');
+        //PHOTO
+        $unJeu->save();
+        return redirect (route('jeu.index'));
+    
     }
 
     /**
@@ -94,8 +99,8 @@ class ActualiteController extends Controller
      */
     public function destroy($id)
     {
-        $lesActualites=Actualite::destroy($id);
-        $request->session()->flash('success', 'l actualité est supprimée');
-        return redirect (route('actualite.index'));
+         $lesJeux=Jeu::destroy($id);
+        $request->session()->flash('success', 'le jeu est supprimée');
+        return redirect (route('jeu.index'));
     }
 }
