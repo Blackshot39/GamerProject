@@ -13,7 +13,7 @@ class JeuUtilisateur extends Migration
      */
     public function up()
     {
-        Schemo::create('jeu_utilisateur', function(Blueprint $table){
+        Schema::create('jeu_user', function(Blueprint $table){
             $table->increments('id');
             $table->boolean('actif')->default(true);
             $table->integer('jeu_id')->unsigned();

@@ -14,7 +14,7 @@ class JeuTypeJeu extends Migration
     public function up()
     {
         //
-         Schemo::create('jeu_typejeu', function(Blueprint $table){
+         Schema::create('jeu_typejeu', function(Blueprint $table){
             $table->increments('id');
             
             $table->integer('jeu_id')->unsigned();

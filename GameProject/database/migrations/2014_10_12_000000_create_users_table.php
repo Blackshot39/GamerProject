@@ -18,13 +18,14 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('password');
             $table->string('email')->unique();
-            $table->string('ville');
-            $table->string('avatar');
-            $table->boolean('connecte');
-            $table->integer('nb-signal');
-            $table->string('statut');
+            $table->string('ville')->nullable()->default(null);
+            $table->string('avatar')->nullable()->default(null);
+            $table->boolean('connecte')->nullable()->default(null);
+            $table->integer('nb-signal')->nullable()->default(0);
+            $table->string('statut')->default('user');
             $table->rememberToken();
             $table->timestamps();
+            $table->engine="InnoDB";
         });
     }
 
