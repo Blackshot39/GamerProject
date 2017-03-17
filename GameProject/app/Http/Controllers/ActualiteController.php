@@ -67,7 +67,7 @@ class ActualiteController extends Controller
     public function edit($id)
     {
        $uneActualite=Actualite::find($id);
-        return view('admin/actualite/update')->with('uneActualite',$uneActualite);
+        return view('admin/actualite/edit')->with('uneActualite',$uneActualite);
     }
 
     /**

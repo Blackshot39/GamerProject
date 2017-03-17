@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\TypeJeu;
 
 class TypeJeuController extends Controller
 {
@@ -13,7 +14,8 @@ class TypeJeuController extends Controller
      */
     public function index()
     {
-        
+        $lesTypeJeux = TypeJeu::all();
+        return view('admin/typeJeu/index')->with('lesTypeJeux',$lesTypeJeux);
     }
 
     /**
@@ -23,7 +25,7 @@ class TypeJeuController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin/typeJeu/create');
     }
 
     /**
@@ -34,7 +36,10 @@ class TypeJeuController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $unTypeJeu= new TypeJeu();
+        $unTypeJeu->titre=$request->get('titre');
+        $unTypeJeu->save();
+        return redirect(route('typeJeu.index'));
     }
 
     /**
@@ -45,7 +50,8 @@ class TypeJeuController extends Controller
      */
     public function show($id)
     {
-        //
+        $unTypeJeu=TypeJeu::find($id);
+        return view ('admin/typeJeu/show')->with('unTypeJeu',$unTypeJeu);
     }
 
     /**
@@ -56,7 +62,8 @@ class TypeJeuController extends Controller
      */
     public function edit($id)
     {
-        //
+        $unTypeJeu=TypeJeu::find($id);
+        return view('admin/typeJeu/edit')->with('unTypeJeu',$unTypeJeu);
     }
 
     /**
@@ -68,7 +75,10 @@ class TypeJeuController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $unTypeJeu= new TypeJeu;
+        $unTypeJeu->titre=$request->get('titre');
+        $unTypeJeu->save();
+        return redirect (route('typeJeu.index'));
     }
 
     /**
@@ -79,6 +89,8 @@ class TypeJeuController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $lesTypeJeux=TypeJeu::destroy($id);
+        $request->session()->flash('success', 'le jeu est supprimée');
+        return redirect (route('typeJeu.index'));
     }
 }
