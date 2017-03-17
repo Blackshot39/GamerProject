@@ -79,10 +79,10 @@ class ActualiteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $uneActualite= new actualite;
+        $uneActualite=Actualite::find($id);
         $uneActualite->libelle=$request->get('libelle');
         $uneActualite->tag=$request->get('tag');
-        $uneActualite->save();
+        $uneActualite->update();
         return redirect (route('actualite.index'));
     }
 

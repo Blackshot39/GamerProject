@@ -69,7 +69,7 @@ class JeuController extends Controller
     public function edit($id)
     {
          $unJeu=Jeu::find($id);
-        return view('admin/actualite/update')->with('unJeu',$unJeu);
+        return view('admin/jeu/edit')->with('unJeu',$unJeu);
     }
 
     /**
@@ -81,12 +81,12 @@ class JeuController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $unJeu= new Jeu;
+        $unJeu= Jeu::find($id);
         $unJeu->nom=$request->get('nom');
         $unJeu->description=$request->get('description');
         $unJeu->dateSortie=$request->get('dateSortie');
         //PHOTO
-        $unJeu->save();
+        $unJeu->update();
         return redirect (route('jeu.index'));
     
     }
