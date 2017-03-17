@@ -6,9 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Models\Actualite;
 use App\Models\Categorie;
-use App\Models\Commentaire;
-
-class ActualiteController extends Controller
+class CategorieController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +15,8 @@ class ActualiteController extends Controller
      */
     public function index()
     {
-        $lesActualites=Actualite::all();
-        return view('admin/actualite/index')->with('lesActualites',$lesActualites);
+        $lesCategories=Categorie::all();
+        return view('admin/categorie/index')->with('lesCategories',$lesCategories);
     }
 
     /**
@@ -28,7 +26,7 @@ class ActualiteController extends Controller
      */
     public function create()
     {
-       return view('admin/actualite/create');
+       return view('admin/categorie/create');
     }
 
     /**
@@ -39,11 +37,11 @@ class ActualiteController extends Controller
      */
     public function store(Request $request)
     {
-       $uneActualite= new actualite;
-        $uneActualite->titre=$request->get('titre');
-        $uneActualite->description=$request->get('description');
-        $uneActualite->save();
-        return redirect (route('actualite.index'));
+        $uneCategorie= new actualite;
+        $uneCategorie->libelle=$request->get('libelle');
+        $uneCategorie->tag=$request->get('tag');
+        $uneCategorie->save();
+        return redirect (route('categorie.index'));
     }
 
     /**
@@ -54,8 +52,8 @@ class ActualiteController extends Controller
      */
     public function show($id)
     {
-        $uneActualite=Actualite::find($id);
-        return view ('admin/actualite/show')->with('uneActualite',$uneActualite);
+        $uneCategorie=Categorie::find($id);
+        return view ('admin/categorie/show')->with('uneCategorie',$uneCategorie);
     }
 
     /**
@@ -66,8 +64,8 @@ class ActualiteController extends Controller
      */
     public function edit($id)
     {
-       $uneActualite=Actualite::find($id);
-        return view('admin/actualite/edit')->with('uneActualite',$uneActualite);
+        $uneCategorie=Categorie::find($id);
+        return view('admin/categorie/edit')->with('uneCategorie',$uneCategorie);
     }
 
     /**
@@ -79,11 +77,11 @@ class ActualiteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $uneActualite=Actualite::find($id);
-        $uneActualite->titre=$request->get('titre');
-        $uneActualite->description=$request->get('description');
-        $uneActualite->update();
-        return redirect (route('actualite.index'));
+        $uneCategorie= new actualite;
+        $uneCategorie->libelle=$request->get('libelle');
+        $uneCategorie->tag=$request->get('tag');
+        $uneCategorie->update();
+        return redirect (route('categorie.index'));
     }
 
     /**
@@ -94,8 +92,8 @@ class ActualiteController extends Controller
      */
     public function destroy($id)
     {
-        Actualite::destroy($id);
-        $request->session()->flash('success', 'l actualité est supprimée');
-        return redirect (route('actualite.index'));
+        Categorie::destroy($id);
+        $request->session()->flash('success', 'la categorie est supprimée');
+        return redirect (route('categorie.index'));
     }
 }
