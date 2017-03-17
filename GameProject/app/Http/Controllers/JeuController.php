@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 use App\Models\Jeu;
 use Illuminate\Http\Request;
+use App\Http\Requests;
+use Intervention\Image\ImageManager;
+use Validator;
 
 class JeuController extends Controller
 {
@@ -13,7 +16,7 @@ class JeuController extends Controller
      */
     public function index()
     {
-        $lesJeux = Jeu::all();
+        $lesJeux = Jeu::paginate(20);
         return view('admin/jeu/index')->with('lesJeux',$lesJeux);
     }
 
@@ -35,15 +38,44 @@ class JeuController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'nom' => 'required|max:255',
+            'description' => 'required|max:65532',  
+            'dateSortie' => 'required'
+           
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('admin/jeu/create')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+        else
+        {
         $unJeu= new Jeu();
         $unJeu->nom=$request->get('nom');
         $unJeu->description=$request->get('description');
         $unJeu->dateSortie=$request->get('dateSortie');
+        //$unJeu->typeJeus()->attach($request->get('typeJeu'));
         //
-        //mettre function pour image (jerome)
-        //
+        //Image
+        if($request->file('image') != null) 
+        {
+            ini_set('memory_limit','256M');
+            $image = $request->file('image');
+            $input['imagename'] = time().'.'.$image->getClientOriginalExtension();   
+            $destinationPath = public_path('/images/jeu/mini');
+            $img = Image::make($image->getRealPath());
+            $img->resize(200, 200, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($destinationPath.'/'.$input['imagename']);
+            $destinationPath = public_path('/images/jeu/normal');
+            $image->move($destinationPath, $input['imagename']);   
+            $unJeu->photo=$input['imagename'];
+        }        
         $unJeu->save();
         return redirect(route('jeu.index'));
+        }
         
         
     }
@@ -81,14 +113,56 @@ class JeuController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $unJeu= Jeu::find($id);
-        $unJeu->nom=$request->get('nom');
-        $unJeu->description=$request->get('description');
-        $unJeu->dateSortie=$request->get('dateSortie');
-        //PHOTO
-        $unJeu->update();
-        return redirect (route('jeu.index'));
-    
+        $validator = Validator::make($request->all(), [
+            'nom' => 'required|max:255',
+            'description' => 'required|max:65532',  
+            'dateSortie' => 'required'
+           
+        ]);
+
+        if ($validator->fails()) {
+            return (route('jeu.edit', $id)
+                        ->withErrors($validator)
+                        ->withInput()
+                    );
+        }        
+        else
+        {
+            $unJeu= Jeu::find($id);
+            $unJeu->nom=$request->get('nom');
+            $unJeu->description=$request->get('description');
+            $unJeu->dateSortie=$request->get('dateSortie');
+            //Image
+        if($request->file('image') != null) 
+        {
+            ini_set('memory_limit','256M');
+            $image = $request->file('image');
+            $input['imagename'] = time().'.'.$image->getClientOriginalExtension();   
+            $destinationPath = public_path('/images/jeu/mini');
+            $img = Image::make($image->getRealPath());
+            $img->resize(200, 200, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($destinationPath.'/'.$input['imagename']);
+            $destinationPath = public_path('/images/jeu/normal');
+            $image->move($destinationPath, $input['imagename']);   
+            $unJeu->photo=$input['imagename'];
+            
+            if($unJeu->photo != null)
+                {
+                    $mini = public_path('images/jeu/mini/'.$unJeu->photo);
+                    if(File::exists($mini)){
+                    File::delete($mini);
+                    }
+                    $norm = public_path('images/jeu/normal/'.$unJeu->photo);
+                    if(File::exists($norm)){
+                    File::delete($norm);
+                    }
+                     
+                }
+        }        
+            $unJeu->update();
+            return redirect (route('jeu.index'));
+        }
     }
 
     /**
@@ -97,10 +171,24 @@ class JeuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
-         Jeu::destroy($id);
-        $request->session()->flash('success', 'le jeu est supprimée');
+        $unJeu = Jeu::find($id);
+        
+         if($unJeu->photo != null)
+                {
+                    $mini = public_path('images/jeu/mini/'.$unJeu->photo);
+                    if(File::exists($mini)){
+                    File::delete($mini);
+                    }
+                    $norm = public_path('images/jeu/normal/'.$unJeu->photo);
+                    if(File::exists($norm)){
+                    File::delete($norm);
+                    }
+                     
+                }
+           Jeu::destroy($id);
+        $request->session()->flash('success', 'Jeu supprimée');
         return redirect (route('jeu.index'));
     }
 }

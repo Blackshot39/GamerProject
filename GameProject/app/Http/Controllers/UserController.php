@@ -9,6 +9,7 @@ use App\Models\User;
 use Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\ImageManager;
 
 class UserController extends Controller
 {
@@ -39,7 +40,7 @@ class UserController extends Controller
     public function create()
     {
         //
-        $lesStatuts = collect(['SuperAdmin'=>'SuperAdmin','Admin'=>'Admin']);
+        $lesStatuts = collect(['Admin'=>'Admin','Moderateur'=>'Moderateur', 'user'=>'user']);
         return view('admin/user/create')->with('lesStatuts', $lesStatuts);
     }
 
@@ -69,10 +70,11 @@ class UserController extends Controller
         else
         {
             $unUser = new User();
-            $unUser->name=$request->get('name');  
+            $unUser->name=$request->get('name');  //pseudo
             $unUser->email=$request->get('email');  
             $unUser->statut=$request->get('statut');  
-            $unUser->password=(bcrypt($request->get('mdp')));        
+            $unUser->password=(bcrypt($request->get('mdp'))); 
+            
             $unUser->save();
             $request->session()->flash("success","Le compte ". $unUser->email ." a été crée avec succès");
             return redirect(route('user.index'));
@@ -88,6 +90,8 @@ class UserController extends Controller
     public function show($id)
     {
         //
+        $unUser = User::find($id);
+        return view('admin/user/show', compact('unUser'));
     }
 
     /**
@@ -100,8 +104,8 @@ class UserController extends Controller
     {
         //        
          $unUser = User::Find($id);
-        $lesStatuts = collect(['SuperAdmin'=>'SuperAdmin','Admin'=>'Admin']);
-          return view('admin/user/edit')->with("unUser", $unUser)->with('lesStatuts', $lesStatuts);
+        $lesStatuts = collect(['Admin'=>'Admin','Moderateur'=>'Moderateur', 'user'=>'user']);
+          return view('admin/user/edit', compact('unUser', 'lesStatuts'));
     }
 
     /**
@@ -119,6 +123,8 @@ class UserController extends Controller
             'name' => 'required|max:255',  
             'mdp' => 'min:6|max:255',
             'statut' => 'required',
+            'avatar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',          
+            'ville' => 'max:255'
             
         ]);
 
@@ -131,8 +137,25 @@ class UserController extends Controller
         {
             $unUser = User::Find($id);
             $unUser->name=$request->get('name');    
-            $unUser->email=$request->get('email');    
-            //Si statut existe, ou statut=texte ?
+            $unUser->email=$request->get('email'); 
+            $unUser->ville=$request->get('ville');
+            
+            //Intervention image avatar
+            if($request->file('image') != null)
+        {
+            ini_set('memory_limit','256M');
+            $image = $request->file('image');
+            $input['imagename'] = time().'.'.$image->getClientOriginalExtension();   
+            $destinationPath = public_path('/images/user/avatar');
+            $img = Image::make($image->getRealPath());
+            $img->resize(200, 200, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($destinationPath.'/'.$input['imagename']);
+               
+            $unUser->avatar=$input['imagename'];
+        }
+            //
+            
             $unUser->statut=$request->get('statut');
             if($request->get('mdp') != null)
             {                    
@@ -155,7 +178,7 @@ class UserController extends Controller
     public function destroy($id, Request $request)
     {
         //
-        $count = User::where('statut', '=', 'SuperAdmin')->count();
+        $count = User::where('statut', '=', 'Admin')->count();
         $user = User::find($id);
         
         if($user->email == Auth::user()->email) //Si l'user a delete est l'user connecter..
@@ -171,7 +194,7 @@ class UserController extends Controller
             }
             else
             {
-                $request->session()->flash("error","Le compte que vous avez tenté de supprimer est le dernier SuperAdmin, et ne peut donc pas être supprimé !");
+                $request->session()->flash("error","Le compte que vous avez tenté de supprimer est le dernier Admin, et ne peut donc pas être supprimé !");
             }
         }
             
@@ -202,8 +225,37 @@ class UserController extends Controller
         }
         else
         {             
-            $unUser = User::Find($id);            
-            $unUser->email=$request->get('email');  
+            $unUser = User::Find($id);     
+            $exAvatar = $unUser->avatar;
+            $unUser->email=$request->get('email');
+            $unUser->ville=$request->get('ville');
+            //avatar
+            if($request->file('image') != null)
+            {
+                ini_set('memory_limit','256M');
+                $image = $request->file('image');
+                $input['imagename'] = time().'.'.$image->getClientOriginalExtension();   
+                $destinationPath = public_path('/images/user/avatar');
+                $img = Image::make($image->getRealPath());
+                $img->resize(200, 200, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save($destinationPath.'/'.$input['imagename']);
+
+                $unUser->avatar=$input['imagename'];
+                //delete ex avatar
+                if($exAvatar != null)
+                {
+                    $avat = public_path('images/user/avatar/'.$exAvatar);
+                    if(File::exists($avat)){
+                    File::delete($avat);
+                    }
+                     
+                }
+                     
+             }
+        //
+           
+            
             if (Hash::check($request->get('now-mdp'), $unUser->password))
             {
                     //return ('bon mdp');

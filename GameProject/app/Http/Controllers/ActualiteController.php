@@ -7,6 +7,7 @@ use App\Http\Requests;
 use App\Models\Actualite;
 use App\Models\Categorie;
 use App\Models\Commentaire;
+use Validator;
 
 class ActualiteController extends Controller
 {
@@ -17,7 +18,7 @@ class ActualiteController extends Controller
      */
     public function index()
     {
-        $lesActualites=Actualite::all();
+        $lesActualites=Actualite::paginate(20);     
         return view('admin/actualite/index')->with('lesActualites',$lesActualites);
     }
 
@@ -28,7 +29,8 @@ class ActualiteController extends Controller
      */
     public function create()
     {
-       return view('admin/actualite/create');
+        $lesCategories = Categorie::pluck('nom, id');
+       return view('admin/actualite/create', compact('lesCategories'));
     }
 
     /**
@@ -39,11 +41,28 @@ class ActualiteController extends Controller
      */
     public function store(Request $request)
     {
-       $uneActualite= new actualite;
-        $uneActualite->titre=$request->get('titre');
-        $uneActualite->description=$request->get('description');
-        $uneActualite->save();
-        return redirect (route('actualite.index'));
+        $validator = Validator::make($request->all(), [
+            'titre' => 'required|max:255',
+            'description' => 'required|max:65532',  
+           
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('admin/actualite/create')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+        else
+        {
+            $uneActualite= new Actualite();
+            $uneActualite->titre=$request->get('titre');
+            $uneActualite->description=$request->get('description');
+            $uneActualite->categories()->associate($request->get('categorie'));
+            $uneActualite->save();
+            $request->session()->flash('success', "L'actualité a été créée.");
+            return redirect (route('actualite.index'));
+        }
+       
     }
 
     /**
@@ -67,7 +86,8 @@ class ActualiteController extends Controller
     public function edit($id)
     {
        $uneActualite=Actualite::find($id);
-        return view('admin/actualite/edit')->with('uneActualite',$uneActualite);
+       $lesCategories = Categorie::pluck('nom, id');
+        return view('admin/actualite/edit', compacy('uneActualite', 'lesCategories'));
     }
 
     /**
@@ -79,11 +99,28 @@ class ActualiteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $uneActualite=Actualite::find($id);
-        $uneActualite->titre=$request->get('titre');
-        $uneActualite->description=$request->get('description');
-        $uneActualite->update();
-        return redirect (route('actualite.index'));
+         $validator = Validator::make($request->all(), [
+            'titre' => 'required|max:255',
+            'description' => 'required|max:65532',  
+           
+        ]);
+
+        if ($validator->fails()) {
+            return (route('actualite.edit', $id)
+                        ->withErrors($validator)
+                        ->withInput()
+                    );
+        }
+        else
+        {
+            $uneActualite=Actualite::find($id);
+            $uneActualite->titre=$request->get('titre');
+            $uneActualite->description=$request->get('description');
+            $uneActualite->categories()->associate($request->get('categorie'));
+            $uneActualite->update();
+            $request->session()->flash('success', "L'actualité a été modifiée.");
+            return redirect (route('actualite.index'));
+        }
     }
 
     /**
@@ -92,10 +129,10 @@ class ActualiteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
         Actualite::destroy($id);
-        $request->session()->flash('success', 'l actualité est supprimée');
+        $request->session()->flash('success', "L'actualité a été supprimée.");
         return redirect (route('actualite.index'));
     }
 }

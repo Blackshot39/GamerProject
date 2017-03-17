@@ -11,13 +11,13 @@ class Actualite extends Model
        return $this->belongsTo('App\Models\Categorie');
     }
     
-  /*  public function commentaires() Pourquoi ?
+    public function commentaires() 
     {
        return $this->hasMany('App\Models\Commentaire');
     }
-    */
+    
      public function users()
     {
-       return $this->belongsTo('App\User');
+       return $this->belongsTo('App\Models\User');
     }
 }

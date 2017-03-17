@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Sujet;
+use Validator;
 
 class SujetController extends Controller
 {
@@ -13,8 +15,8 @@ class SujetController extends Controller
      */
     public function index()
     {
-                $lesSujets=Sujet::all();
-        return view('admin/sujet/home')->with('lesSujets',$lesSujets);
+        $lesSujets=Sujet::paginate(20);
+        return view('admin/sujet/index')->with('lesSujets',$lesSujets);
     }
 
     /**
@@ -35,11 +37,26 @@ class SujetController extends Controller
      */
     public function store(Request $request)
     {
-                 $unSujet= new Sujet();
+        $validator = Validator::make($request->all(), [
+            'titre' => 'required|max:255',
+              
+           
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('admin/sujet/create')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+        else
+        {
+         $unSujet= new Sujet();
          $unSujet->titre=$request->get('titre');
+         //ajouter le 1er commentaire
          $unSujet->save();
-         $request->session()->flash('success', 'Le Sujet a été crée !');
+         $request->session()->flash('success', 'Sujet crée.');
         return redirect(route('sujet.index'));
+        }
     }
 
     /**

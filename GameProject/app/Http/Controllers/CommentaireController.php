@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Commentaire;
+use App\Http\Requests;
+use Validator;
 
 class CommentaireController extends Controller
 {
@@ -13,8 +16,8 @@ class CommentaireController extends Controller
      */
     public function index()
     {
-                $lesCommentaires=Commentaire::all();
-        return view('admin/commentaire/home')->with('lesCommentaires',$lesCommentaires);
+        $lesCommentaires=Commentaire::paginate(20);
+        return view('admin/commentaire/index')->with('lesCommentaires',$lesCommentaires);
     }
 
     /**
@@ -35,20 +38,25 @@ class CommentaireController extends Controller
      */
     public function store(Request $request)
     {
-                $validator = Validator::make($request->all(), [
-            'description' => 'required|max:250',
+            $validator = Validator::make($request->all(), [
+            'description' => 'required|max:65532',
         ]);
 
         if ($validator->fails()) {
-            return redirect('commentaire/create')
+            return redirect('admin/commentaire/create')
                         ->withErrors($validator)
                         ->withInput();
                     }
 
-        $unCom= new Commentaire();
-         $unCom->description=$request->get('description');
-         $unCom->save();
-         $request->session()->flash('success', 'Le Commentaire a été créee !');
+         $unCommentaire= new Commentaire();
+         $unCommentaire->description=$request->get('description');
+         //
+         //Comment faire pour que le commentaire soit associé soit à un sujet, soit à une actualité (et pas aux deux)!
+         //
+         
+         $unCommentaire->users()->associate(Auth::user()->id);
+         $unCommentaire->save();
+         $request->session()->flash('success', 'Commentaire ajouté !');
         return redirect(route('commentaire.index'));
     }
 
@@ -61,8 +69,8 @@ class CommentaireController extends Controller
     public function show($id)
     {
         //
-          $unCom=Commentaire::find($id);
-        return view('admin/commentaire/show',compact('unCom'));
+          $unCommentaire=Commentaire::find($id);
+        return view('admin/commentaire/show',compact('unCommentaire'));
     }
 
     /**
@@ -73,8 +81,8 @@ class CommentaireController extends Controller
      */
     public function edit($id)
     {
-                $unCom=Commentaire::find($id);
-        return view('admin/commentaire/edit',compact('unCom'));
+                $unCommentaire=Commentaire::find($id);
+        return view('admin/commentaire/edit',compact('unCommentaire'));
     }
 
     /**
@@ -87,19 +95,20 @@ class CommentaireController extends Controller
     public function update(Request $request, $id)
     {
                 $validator = Validator::make($request->all(), [
-            'description' => 'required|max:250',
+            'description' => 'required|max:65532',
         ]);
 
         if ($validator->fails()) {
-            return redirect('commentaire/'.$id.'/edit/')
+            return (route('commentaire.edit', $id)
                         ->withErrors($validator)
-                        ->withInput();
+                        ->withInput()
+                    );
                     }
 
-        $unCom=Commentaire::find($id);
-         $unCom->description=$request->get('description');
-         $unCom->save();
-         $request->session()->flash('success', 'Le commentaire a été modifiée !');
+        $unCommentaire=Commentaire::find($id);
+         $unCommentaire->description=$request->get('description');
+         $unCommentaire->update();
+         $request->session()->flash('success', 'Commentaire  modifiée !');
         return redirect(route('commentaire.index'));   
     }
 
@@ -109,10 +118,10 @@ class CommentaireController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
-                $unCom=Commentaire::destroy($id);
-        $request->session()->flash('success', 'Le Commentaire est supprimée !');
-        return redirect(route('commentaire.index'));
+        Commentaire::destroy($id);
+        $request->session()->flash('success', 'Commentaire supprimée !');
+        return back();
     }
 }

@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
-use App\Models\Actualite;
+use Validator;
 use App\Models\Categorie;
+
 class CategorieController extends Controller
 {
     /**
@@ -15,7 +16,7 @@ class CategorieController extends Controller
      */
     public function index()
     {
-        $lesCategories=Categorie::all();
+        $lesCategories=Categorie::paginate(20);     
         return view('admin/categorie/index')->with('lesCategories',$lesCategories);
     }
 
@@ -37,11 +38,27 @@ class CategorieController extends Controller
      */
     public function store(Request $request)
     {
-        $uneCategorie= new actualite;
-        $uneCategorie->libelle=$request->get('libelle');
-        $uneCategorie->tag=$request->get('tag');
-        $uneCategorie->save();
-        return redirect (route('categorie.index'));
+        $validator = Validator::make($request->all(), [
+            'libelle' => 'required|max:255',
+            'tag' => 'required|max:255',  
+           
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('admin/categorie/create')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+        else
+        {
+            $uneCategorie= new Categorie();
+            $uneCategorie->libelle=$request->get('libelle');
+            $uneCategorie->tag=$request->get('tag');
+            $uneCategorie->save();
+            $request->session()->flash('success', 'Categorie créée.');
+            return redirect (route('categorie.index'));
+        }
+        
     }
 
     /**
@@ -77,11 +94,27 @@ class CategorieController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $uneCategorie= new actualite;
-        $uneCategorie->libelle=$request->get('libelle');
-        $uneCategorie->tag=$request->get('tag');
-        $uneCategorie->update();
-        return redirect (route('categorie.index'));
+        $validator = Validator::make($request->all(), [
+            'libelle' => 'required|max:255',
+            'tag' => 'required|max:255',  
+           
+        ]);
+
+        if ($validator->fails()) {
+            return (route('categorie.edit', $id)
+                        ->withErrors($validator)
+                        ->withInput()
+                    );
+        }
+        else
+        {
+            $uneCategorie = Categorie::find($id);
+            $uneCategorie->libelle=$request->get('libelle');
+            $uneCategorie->tag=$request->get('tag');
+            $uneCategorie->update();
+            $request->session()->flash('success', 'Categorie modifiée.');
+            return redirect (route('categorie.index'));
+        }
     }
 
     /**
@@ -90,10 +123,10 @@ class CategorieController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
         Categorie::destroy($id);
-        $request->session()->flash('success', 'la categorie est supprimée');
+        $request->session()->flash('success', 'Categorie supprimée.');
         return redirect (route('categorie.index'));
     }
 }

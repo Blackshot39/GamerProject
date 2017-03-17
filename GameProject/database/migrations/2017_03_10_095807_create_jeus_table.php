@@ -17,8 +17,8 @@ class CreateJeusTable extends Migration
             $table->increments('id');
             $table->string('nom');
             $table->text('description');
-            $table->date('dateSortie');
-            $table->string('photo');
+            $table->date('dateSortie')->nullable()->default(null);
+            $table->string('photo')->nullable()->default(null);
             $table->timestamps();
             $table->engine = "InnoDB";
         });

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Validator;
+use App\Models\Message;
 
 class MessageController extends Controller
 {
@@ -13,8 +15,8 @@ class MessageController extends Controller
      */
     public function index()
     {
-                $lesMessages=Message::all();
-        return view('admin/message/home')->with('lesMessages',$lesMessages);
+                $lesMessages=Message::paginate(20);
+        return view('admin/message/index')->with('lesMessages',$lesMessages);
     }
 
     /**
@@ -35,7 +37,7 @@ class MessageController extends Controller
      */
     public function store(Request $request)
     {
-                         $unMessage= new Message();
+         $unMessage= new Message();
          $unMessage->titre=$request->get('titre');
          $unMessage->description=$request->get('description');
          $unMessage->save();
