@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Intervention\Image\ImageManager;
 use Validator;
+use Image;
+use File;
 
 class JeuController extends Controller
 {

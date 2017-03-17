@@ -7,10 +7,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Site internet du magasin de Saint-Vit Chasse Peche 25">
-    <meta name="author" content="Saint-Vit Chasse Peche 25">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-    <title>Admin - Saint-Vit Chasse Peche 25</title>
+    <title>Admin - GamerProject</title>
  <link rel="icon" type="image/png" href="{{url('/').'/favicon.ico'}}" />
     <!-- Bootstrap Core CSS -->
     <link href="{{url('css/bootstrap.min.css')}}" rel="stylesheet">
@@ -55,39 +55,11 @@
             </div>
             <!-- /.navbar-header -->
 
-            <ul class="nav navbar-top-links navbar-right">
-                
-                <!-- /.dropdown -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        @if (Auth::check())
-                        <i class="fa fa-user fa-fw"></i> {{Auth::user()->name}} <i class="fa fa-caret-down"></i>
-                        @else
-                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
-                        @endif
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                         @if (Auth::check()==false)
-                        <li><a href=""><i class="fa fa-user fa-fw"></i> Se connecter</a>
-                        </li>
-                        @endif
-                         @if (Auth::check())
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Mon compte</a>
-                        </li>                       
-                        <li class="divider"></li>
-                        <li>
-                            
-                            {{ Form::open(['route' => ['logout']]) }}
-                             <button type="submit" class="btn btn-default"><span class="fa fa-power-off" aria-hidden="true"></span> Se déconnecter</button>
-                            {{ Form::close() }}                            
-                        </li>
-                        @endif
-                    </ul>
-                    <!-- /.dropdown-user -->
-                </li>
-                <!-- /.dropdown -->
-            </ul>
-            <!-- /.navbar-top-links -->
+           <!-- Partie buguer -->
+           
+           
+           
+           
  @if (Auth::check()==true)
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">

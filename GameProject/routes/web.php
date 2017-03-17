@@ -15,7 +15,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     
     Route::resource('actualite', 'ActualiteController');    
     Route::resource('utilisateur', 'UserController');
-  
+    Route::resource('jeu', 'JeuController');
     Route::get('patate', 'HomeController@index');
 });
 
