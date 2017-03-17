@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Http\Requests;
 use App\Models\Actualite;
 use App\Models\Categorie;
 
@@ -16,8 +16,8 @@ class ActualiteController extends Controller
      */
     public function index()
     {
-        $lesActualite=Actualite::all();
-        return view('admin/actualite/index')->with('lesActualite',$lesActualite);
+        $lesActualites=Actualite::all();
+        return view('admin/actualite/index')->with('lesActualites',$lesActualites);
     }
 
     /**
@@ -92,7 +92,7 @@ class ActualiteController extends Controller
      */
     public function destroy($id)
     {
-        $lesActualite=actualite::destroy($id);
+        $lesActualites=actualite::destroy($id);
         $request->session()->flash('success', 'l actualité est supprimée');
     return redirect (route('actualite.index'));
     }
