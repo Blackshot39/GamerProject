@@ -99,7 +99,7 @@ class JeuController extends Controller
      */
     public function destroy($id)
     {
-         $lesJeux=Jeu::destroy($id);
+         Jeu::destroy($id);
         $request->session()->flash('success', 'le jeu est supprimée');
         return redirect (route('jeu.index'));
     }

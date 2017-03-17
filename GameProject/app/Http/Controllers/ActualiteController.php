@@ -94,7 +94,7 @@ class ActualiteController extends Controller
      */
     public function destroy($id)
     {
-        $lesActualites=Actualite::destroy($id);
+        Actualite::destroy($id);
         $request->session()->flash('success', 'l actualité est supprimée');
         return redirect (route('actualite.index'));
     }
