@@ -75,9 +75,9 @@ class TypeJeuController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $unTypeJeu= new TypeJeu;
+        $unTypeJeu= TypeJeu::find($id);
         $unTypeJeu->titre=$request->get('titre');
-        $unTypeJeu->save();
+        $unTypeJeu->update();
         return redirect (route('typeJeu.index'));
     }
 
@@ -89,7 +89,7 @@ class TypeJeuController extends Controller
      */
     public function destroy($id)
     {
-        $lesTypeJeux=TypeJeu::destroy($id);
+        TypeJeu::destroy($id);
         $request->session()->flash('success', 'le jeu est supprimée');
         return redirect (route('typeJeu.index'));
     }
