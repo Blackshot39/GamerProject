@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class SujetController extends Controller
+class MessageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,8 +13,8 @@ class SujetController extends Controller
      */
     public function index()
     {
-                $lesSujets=Sujet::all();
-        return view('admin/sujet/home')->with('lesSujets',$lesSujets);
+                $lesMessages=Message::all();
+        return view('admin/message/home')->with('lesMessages',$lesMessages);
     }
 
     /**
@@ -24,7 +24,7 @@ class SujetController extends Controller
      */
     public function create()
     {
-        return view('admin/sujet/create');
+        return view('admin/message/create');
     }
 
     /**
@@ -35,11 +35,12 @@ class SujetController extends Controller
      */
     public function store(Request $request)
     {
-                 $unSujet= new Sujet();
-         $unSujet->titre=$request->get('titre');
-         $unSujet->save();
-         $request->session()->flash('success', 'Le Sujet a été crée !');
-        return redirect(route('sujet.index'));
+                         $unMessage= new Message();
+         $unMessage->titre=$request->get('titre');
+         $unMessage->description=$request->get('description');
+         $unMessage->save();
+         $request->session()->flash('success', 'Le Message a été crée !');
+        return redirect(route('message.index'));
     }
 
     /**
@@ -50,8 +51,8 @@ class SujetController extends Controller
      */
     public function show($id)
     {
-                        $unSujet=Sujet::find($id);
-        return view('admin/sujet/show');
+                        $unMessage=Message::find($id);
+        return view('admin/message/show');
     }
 
     /**
@@ -62,8 +63,8 @@ class SujetController extends Controller
      */
     public function edit($id)
     {
-                $unSujet=Sujet::find($id);
-        return view('admin/sujet/edit');
+                                $unMessage=Message::find($id);
+        return view('admin/message/edit');
     }
 
     /**
@@ -75,11 +76,12 @@ class SujetController extends Controller
      */
     public function update(Request $request, $id)
     {
-                 $unSujet=Sujet::find($id);
-         $unSujet->titre=$request->get('titre');
-         $unSujet->save();
-         $request->session()->flash('success', 'La Copropriete a été modifiée !');
-         return redirect(route('sujet.index'));  
+                         $unMessage=Message::find($id);
+         $unMessage->titre=$request->get('titre');
+         $unMessage->description=$request->get('description');
+         $unMessage->save();
+         $request->session()->flash('success', 'La Message a été modifiée !');
+         return redirect(route('message.index'));  
     }
 
     /**
@@ -90,9 +92,9 @@ class SujetController extends Controller
      */
     public function destroy($id)
     {
-                $unSujet=Sujet::find($id);
-        $unSujet->save();
-        $request->session()->flash('success', 'La Copropriete a été supprimée !');
-        return redirect(route('sujet.index'));
+                        $unMessage=Message::find($id);
+        $unMessage->save();
+        $request->session()->flash('success', 'La Message a été supprimée !');
+        return redirect(route('message.index'));
     }
 }
