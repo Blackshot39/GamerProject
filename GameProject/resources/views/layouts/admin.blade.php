@@ -219,6 +219,15 @@
 
     <!-- BaguetteBox Script - https://github.com/feimosi/baguetteBox.js by feimosi -->
     <script src="{{url('js/baguetteBox.min.js')}}"></script>
+    
+    
+    <!-- DataTable (filtertable)-->
+    <script src="{{url('js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{url('js/dataTables.bootstrap.min.js')}}"></script>
+    
+ 
+
+    
     <script>
 window.onload = function() {
 //    if (typeof oldIE === 'undefined' && Object.keys) {
@@ -243,6 +252,12 @@ if ( typeof oldIE === 'undefined' && Object.keys && typeof hljs !== 'undefined')
         }
     });
 };
+</script>
+
+<script>
+            $(document).ready(function() {
+    $('#example').DataTable();
+} );
 </script>
     
 

@@ -1,9 +1,9 @@
 @extends('layouts.admin')
-@section('content')
-<html>
+@section('content')    
     <h2 class="page-header"> Liste des jeux</h2>
+
     <div class="table-responsive">
-                                <table class="table table-striped table-bordered table-hover">
+                                <table id="example" class="table table-striped table-bordered table-hover">
                                     <thead>
                                         <tr>
                                             <th>Nom</th>
@@ -34,6 +34,8 @@
                                     
                                     </tbody>
                                 </table>
+        
+    </div>
     </div>
     @if (Session::has('sucess'))
     {{Session::get('success')}}

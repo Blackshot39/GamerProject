@@ -69,7 +69,7 @@
 <div class="form-group">
     
     
-<!--    Probleme avec ça alors que ça fonctionné au debut???        {!! Form::label('image', 'Choisir l'image du jeu',['class' => 'col-lg-2 control-label']) !!}-->
+   
             <div class="col-lg-10">
             {!! Form::file('image') !!}
             </div>
