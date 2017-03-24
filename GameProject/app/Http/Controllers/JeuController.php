@@ -123,10 +123,10 @@ class JeuController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return (route('jeu.edit', $id)
+            return redirect(route('jeu.edit', $id))
                         ->withErrors($validator)
                         ->withInput()
-                    );
+                    ;
         }        
         else
         {

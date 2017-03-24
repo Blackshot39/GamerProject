@@ -71,7 +71,8 @@
     
    
             <div class="col-lg-10">
-            {!! Form::file('image') !!}
+            {!! Form::label('image', "Image du jeu",['class' => 'col-lg-2 control-label']) !!}
+            {!! Form::file('image', array('class' => 'form-control')) !!}
             </div>
         </div>
 

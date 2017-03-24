@@ -1,9 +1,8 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Models\TypeJeu;
+use Validator;
 
 class TypeJeuController extends Controller
 {
@@ -36,10 +35,23 @@ class TypeJeuController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'titre' => 'required'
+           
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('admin/typeJeu/create')
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+        else
+        {
         $unTypeJeu= new TypeJeu();
         $unTypeJeu->titre=$request->get('titre');
         $unTypeJeu->save();
-        return redirect(route('typeJeu.index'));
+        return redirect(route('typejeu.index'));
+        }
     }
 
     /**
@@ -78,7 +90,7 @@ class TypeJeuController extends Controller
         $unTypeJeu= TypeJeu::find($id);
         $unTypeJeu->titre=$request->get('titre');
         $unTypeJeu->update();
-        return redirect (route('typeJeu.index'));
+        return redirect (route('typejeu.index'));
     }
 
     /**
@@ -87,10 +99,10 @@ class TypeJeuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
         TypeJeu::destroy($id);
         $request->session()->flash('success', 'le jeu est supprimée');
-        return redirect (route('typeJeu.index'));
+        return redirect (route('typejeu.index'));
     }
 }

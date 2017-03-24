@@ -19,7 +19,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('patate', 'HomeController@index');
     Route::get('/me', 'UserController@myAccount')->name('user.myAccount');
     Route::put('/me/{id}', 'UserController@myAccountPut')->name('user.myAccountPut');
-    
+    Route::resource('typejeu', 'TypeJeuController');
 });
 
 

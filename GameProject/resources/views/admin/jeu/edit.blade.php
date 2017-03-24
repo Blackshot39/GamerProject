@@ -4,12 +4,12 @@
 
 <h2> Modifier un produit : {{$unJeu->nom}} </h2>
 
-    {!! Form::open(['method'=>'put', 'route' => ['jeu.update', $unJeu->id],'class' => 'form-horizontal']) !!}
+    {!! Form::open(['method'=>'put', 'route' => ['jeu.update', $unJeu->id],'class' => 'form-horizontal','enctype'=>'multipart/form-data']) !!}
 <div class="well">
            <div class="form-group">
       {!! Form::label('nom', 'Nom :',['class' => 'col-lg-2 control-label'])!!}
       <div class="col-lg-10">
-          {!! Form::text('nom','', ['placeholder' => 'nom','class' => 'form-control'])!!}
+          {!! Form::text('nom',$unJeu->nom, ['placeholder' => 'nom','class' => 'form-control'])!!}
       </div>
       
       
@@ -32,9 +32,9 @@
     
       {!! Form::label('description','Description',['class' => 'col-lg-2 control-label'])!!}
       <div class="col-lg-10">
-      {!! Form::textarea('description','',['placeholder' => 'description','class' => 'form-control', 'rows' => 3])!!}
+      {!! Form::textarea('description',$unJeu->description,['placeholder' => 'description','class' => 'form-control', 'rows' => 3])!!}
       </div>
-       @if ($errors->has('code'))
+       @if ($errors->has('description'))
        <div class="alert alert-danger">
             @foreach ($errors->get('description') as $message)
            <ul>
@@ -51,7 +51,7 @@
     
       {!! Form::label('dateSortie','Date de sortie',['class' => 'col-lg-2 control-label'])!!}
       <div class="col-lg-10">
-      {!! Form::date('dateSortie','\Carbon\Carbon::now()',['class' => 'form-control'])!!}
+      {!! Form::date('dateSortie',$unJeu->dateSortie,['class' => 'form-control'])!!}
       </div>
        @if ($errors->has('dateSortie'))
        <div class="alert alert-danger">
@@ -69,11 +69,12 @@
 <div class="form-group">
     
    
-<!--    Probleme avec ça alors que ça fonctionné au debut???        {!! Form::label('image', 'Choisir l'image du jeu',['class' => 'col-lg-2 control-label']) !!}-->
+   
             <div class="col-lg-10">
-            {!! Form::file('image') !!}
+                 {!! Form::label('image', "Image du jeu",['class' => 'col-lg-2 control-label']) !!}
+            {!! Form::file('image', array('class' => 'form-control')) !!}
             </div>
-        </div>
+</div>
 
 <button type="submit" class=" btn btn-primary center-block">Créer</button>
 </div>
