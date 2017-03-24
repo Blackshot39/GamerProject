@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.admin')
 @section('content')
 
 <h1 class="page-header">Créer un administrateur</h1>

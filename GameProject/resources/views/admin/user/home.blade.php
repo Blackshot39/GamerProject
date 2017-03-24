@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('layouts.admin')
 @section('content')
 
 <div class="col-lg-12">
@@ -10,6 +10,8 @@
                                             <th>Nom</th>
                                             <th>E-mail</th>
                                             <th>Statut</th>
+                                            <th>Ville</th>
+                                            <th>Nb signalement</th>
                                             <th>Date de création</th>
 <!--                                            <th>Action</th>-->
                                         </tr>
@@ -20,6 +22,8 @@
                                             <td>{{$user['name']}}</td>
                                             <td>{{$user['email']}}</td>
                                             <td>{{$user['statut']}}</td>
+                                            <td>{{$user['ville']}}</td>
+                                            <td>{{$user['nb-signal']}}</td>
                                             <td>{{Carbon\Carbon::parse($user->created_at)->format('d-m-Y h:i:s')}}</td>
                                             <td>  
                                                 @if ($user->statut == 'attente')

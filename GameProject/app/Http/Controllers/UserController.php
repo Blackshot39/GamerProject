@@ -10,6 +10,8 @@ use Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManager;
+use Image;
+use File;
 
 class UserController extends Controller
 {
@@ -25,10 +27,28 @@ class UserController extends Controller
          //$this->middleware('admin', ['except' => ['index']]);
     }
     
+    public function bloquer($id)
+    {
+        $unUser = User::find($id);
+        $unUser->ban = true;
+        $unUser->update();
+    }
+    
+    public function debloquer($id)
+    {
+        $unUser = User::find($id);
+        $unUser->ban = false;
+        $unUser->update();
+    }   
+  
+    
+    
     public function index()
     {
         //
-        $lesUsers = User::paginate(20);       
+        $lesUsers = User::orderBy('statut')
+                        ->paginate(20);
+                      
         return view('admin/user/home')->with("lesUsers", $lesUsers);
     }
 
@@ -141,19 +161,7 @@ class UserController extends Controller
             $unUser->ville=$request->get('ville');
             
             //Intervention image avatar
-            if($request->file('image') != null)
-        {
-            ini_set('memory_limit','256M');
-            $image = $request->file('image');
-            $input['imagename'] = time().'.'.$image->getClientOriginalExtension();   
-            $destinationPath = public_path('/images/user/avatar');
-            $img = Image::make($image->getRealPath());
-            $img->resize(200, 200, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save($destinationPath.'/'.$input['imagename']);
-               
-            $unUser->avatar=$input['imagename'];
-        }
+           
             //
             
             $unUser->statut=$request->get('statut');
@@ -230,14 +238,14 @@ class UserController extends Controller
             $unUser->email=$request->get('email');
             $unUser->ville=$request->get('ville');
             //avatar
-            if($request->file('image') != null)
+            if($request->file('avatar') != null)
             {
                 ini_set('memory_limit','256M');
-                $image = $request->file('image');
+                $image = $request->file('avatar');
                 $input['imagename'] = time().'.'.$image->getClientOriginalExtension();   
                 $destinationPath = public_path('/images/user/avatar');
                 $img = Image::make($image->getRealPath());
-                $img->resize(200, 200, function ($constraint) {
+                $img->resize(150, 150, function ($constraint) {
                     $constraint->aspectRatio();
                 })->save($destinationPath.'/'.$input['imagename']);
 

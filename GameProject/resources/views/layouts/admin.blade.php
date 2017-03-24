@@ -56,7 +56,39 @@
             <!-- /.navbar-header -->
 
            <!-- Partie buguer -->
-           
+                       <ul class="nav navbar-top-links navbar-right">
+                
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        @if (Auth::check())
+                        <i class="fa fa-user fa-fw"></i> {{Auth::user()->name}} <i class="fa fa-caret-down"></i>
+                        @else
+                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                        @endif
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                         @if (Auth::check()==false)
+                        <li><a href=""><i class="fa fa-user fa-fw"></i> Se connecter</a>
+                        </li>
+                        @endif
+                         @if (Auth::check())
+                        <li><a href="{{route('user.myAccount')}}"><i class="fa fa-gear fa-fw"></i> Mon compte</a>
+                        </li>                       
+                        <li class="divider"></li>
+                        <li>
+                            
+                            {{ Form::open(['route' => ['logout']]) }}
+                             <button type="submit" class="btn btn-default"><span class="fa fa-power-off" aria-hidden="true"></span> Se déconnecter</button>
+                            {{ Form::close() }}                            
+                        </li>
+                        @endif
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
            
            
            
@@ -74,7 +106,7 @@
                             <a href="#"><i class="fa fa-dashboard fa-fw"></i> Tableau de bord</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-users"></i> Utilisateurs</a>
+                            <a href="{{route('user.index')}}"><i class="fa fa-users"></i> Utilisateurs</a>
                         </li>
                         <li>                        
                             <a href="#"><i class="fa fa-newspaper-o"></i> Actualités<span class="fa arrow"></span></a>

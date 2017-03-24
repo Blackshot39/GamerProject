@@ -1,11 +1,11 @@
-@extends('layout')
+@extends('layouts.admin')
 @section('content')
 
 
 <h1 class="page-header">Editer un administrateur</h1>
     <div class="col-lg-12">
         <div class="panel panel-default">
-                        <div class="panel-heading"> Editer un administrateur</div>
+                        <div class="panel-heading"> Editer un compte</div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-12">
@@ -33,6 +33,20 @@
                         <div class="alert alert-danger" role="alert">
                             <ul>
                         @foreach ($errors->get('email') as $message) 
+                            <li>{{$message}}</li>
+                        @endforeach
+                        </ul>
+                        </div>
+                        @endif
+                        
+                        <div class="form-group">
+                        {!! Form::label('ville', 'ville') !!}
+                        {!! Form::text('ville', $unUser->ville, ['class'=>'form-control', 'required' => 'required']) !!}
+                         </div>
+                          @if ($errors->has('ville'))
+                        <div class="alert alert-danger" role="alert">
+                            <ul>
+                        @foreach ($errors->get('ville') as $message) 
                             <li>{{$message}}</li>
                         @endforeach
                         </ul>

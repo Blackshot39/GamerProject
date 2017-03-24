@@ -14,9 +14,12 @@
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     
     Route::resource('actualite', 'ActualiteController');    
-    Route::resource('utilisateur', 'UserController');
+    Route::resource('user', 'UserController');
     Route::resource('jeu', 'JeuController');
     Route::get('patate', 'HomeController@index');
+    Route::get('/me', 'UserController@myAccount')->name('user.myAccount');
+    Route::put('/me/{id}', 'UserController@myAccountPut')->name('user.myAccountPut');
+    
 });
 
 
