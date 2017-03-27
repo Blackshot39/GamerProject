@@ -4,7 +4,7 @@
 
 <h2> Modifier un produit : {{$unJeu->nom}} </h2>
 
-    {!! Form::open(['method'=>'put', 'route' => ['jeu.update', $unJeu->id],'class' => 'form-horizontal','enctype'=>'multipart/form-data']) !!}
+    {!! Form::open(['method'=>'put', 'route' => ['jeu.update', $unJeu->id],'class' => 'form-horizontal','enctype' => 'multipart/form-data']) !!}
 <div class="well">
            <div class="form-group">
       {!! Form::label('nom', 'Nom :',['class' => 'col-lg-2 control-label'])!!}

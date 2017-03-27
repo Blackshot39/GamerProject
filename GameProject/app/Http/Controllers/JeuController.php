@@ -137,18 +137,6 @@ class JeuController extends Controller
             //Image
         if($request->file('image') != null) 
         {
-            ini_set('memory_limit','256M');
-            $image = $request->file('image');
-            $input['imagename'] = time().'.'.$image->getClientOriginalExtension();   
-            $destinationPath = public_path('/images/jeu/mini');
-            $img = Image::make($image->getRealPath());
-            $img->resize(200, 200, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save($destinationPath.'/'.$input['imagename']);
-            $destinationPath = public_path('/images/jeu/normal');
-            $image->move($destinationPath, $input['imagename']);   
-            $unJeu->photo=$input['imagename'];
-            
             if($unJeu->photo != null)
                 {
                     $mini = public_path('images/jeu/mini/'.$unJeu->photo);
@@ -161,8 +149,24 @@ class JeuController extends Controller
                     }
                      
                 }
+                
+            ini_set('memory_limit','256M');
+            $image = $request->file('image');
+            $input['imagename'] = time().'.'.$image->getClientOriginalExtension();   
+            $destinationPath = public_path('/images/jeu/mini');
+            $img = Image::make($image->getRealPath());
+            $img->resize(200, 200, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($destinationPath.'/'.$input['imagename']);
+            $destinationPath = public_path('/images/jeu/normal');
+            $image->move($destinationPath, $input['imagename']);   
+            $unJeu->photo=$input['imagename'];
+            
+            
         }        
+            
             $unJeu->update();
+            
             return redirect (route('jeu.index'));
         }
     }
