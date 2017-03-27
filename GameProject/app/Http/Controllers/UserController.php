@@ -27,18 +27,20 @@ class UserController extends Controller
          //$this->middleware('admin', ['except' => ['index']]);
     }
     
-    public function bloquer($id)
+    public function ban($id)
     {
         $unUser = User::find($id);
         $unUser->ban = true;
         $unUser->update();
+        return redirect(route('user.index'));
     }
     
-    public function debloquer($id)
+    public function deban($id)
     {
         $unUser = User::find($id);
         $unUser->ban = false;
         $unUser->update();
+        return redirect(route('user.index'));
     }   
   
     

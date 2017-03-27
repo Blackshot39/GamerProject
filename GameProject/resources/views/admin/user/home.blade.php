@@ -7,7 +7,7 @@
                                 <table class="table table-striped table-bordered table-hover">
                                    <thead>
                                         <tr>                                           
-                                            <th>Nom</th>
+                                            <th>Pseudo</th>
                                             <th>E-mail</th>
                                             <th>Statut</th>
                                             <th>Ville</th>
@@ -26,9 +26,13 @@
                                             <td>{{$user['nb-signal']}}</td>
                                             <td>{{Carbon\Carbon::parse($user->created_at)->format('d-m-Y h:i:s')}}</td>
                                             <td>  
-                                                @if ($user->statut == 'attente')
-                                               {!! Form::open(['route' => ['user.validateStatut', $user->id], 'method' => 'put']) !!}
-                                               {!! Form::submit('Valider',['class'=>'btn btn-success']) !!}
+                                                @if ($user->ban == false)
+                                               {!! Form::open(['route' => ['user.ban', $user->id], 'method' => 'put']) !!}
+                                               {!! Form::submit('Ban',['class'=>'btn btn-warning']) !!}
+                                               {!! Form::close() !!}
+                                               @else
+                                               {!! Form::open(['route' => ['user.deban', $user->id], 'method' => 'put']) !!}
+                                               {!! Form::submit('Déban',['class'=>'btn btn-warning']) !!}
                                                {!! Form::close() !!}
                                                @endif
                                                 <a href="{{route('user.edit', $user->id)}}"><button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></a>

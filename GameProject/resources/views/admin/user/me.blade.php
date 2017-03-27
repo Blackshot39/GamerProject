@@ -5,28 +5,17 @@
 <h1 class="page-header">Mon profil</h1>
     <div class="col-lg-12">
         <div class="panel panel-default">
-                        <div class="panel-heading"> Mon profil</div>
+                        <div class="panel-heading"> Mon profil: {{$user->name}}</div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-12">
 
                         {!! Form::open(array('method' => 'PUT', 'route' => ['user.myAccountPut', $user->id], 'enctype' => 'multipart/form-data')) !!}
-                        <div class="form-group">
-                        {!! Form::label('name', 'Pseudo') !!}
-                          <p>{{$user->name}}</p>   
-                        </div>      
-                         @if ($errors->has('name'))
-                        <div class="alert alert-danger" role="alert">
-                            <ul>
-                        @foreach ($errors->get('name') as $message) 
-                            <li>{{$message}}</li>
-                        @endforeach
-                        </ul>
-                        </div>
-                        @endif
+                           
+                         
 
                          <div class="form-group">
-                        {!! Form::label('email', 'email') !!}
+                        {!! Form::label('email', 'Email') !!}
                         {!! Form::text('email', $user->email, ['class'=>'form-control', 'required' => 'required']) !!}
                          </div>
                           @if ($errors->has('email'))
