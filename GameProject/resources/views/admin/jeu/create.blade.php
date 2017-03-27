@@ -34,7 +34,7 @@
       <div class="col-lg-10">
       {!! Form::textarea('description','',['placeholder' => 'description','class' => 'form-control', 'rows' => 3])!!}
       </div>
-       @if ($errors->has('code'))
+       @if ($errors->has('description'))
        <div class="alert alert-danger">
             @foreach ($errors->get('description') as $message)
            <ul>
