@@ -7,7 +7,7 @@
                                 <table id="example" class="table table-striped table-bordered table-hover">
                                     <thead>
                                         <tr>
-                                            <th>Type</th>
+                                            <th>Titre</th>
                                             <th>Action</th>
                                             
                                         </tr>

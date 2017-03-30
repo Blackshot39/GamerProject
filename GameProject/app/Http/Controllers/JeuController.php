@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Jeu;
+use App\Models\TypeJeu;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Intervention\Image\ImageManager;
@@ -169,6 +170,22 @@ class JeuController extends Controller
             
             return redirect (route('jeu.index'));
         }
+    }
+    
+    public function addTypeJeu($id)
+    {
+        $unJeu=Jeu::find($id);
+        $lesTypesJeux=TypeJeu::pluck('titre', 'id');
+        return view ('admin/jeu/addTypeJeu', compact('unJeu','lesTypesJeux'));
+    }
+    
+    public function storeTypeJeu(Request $request,$id)
+    {
+        $unJeu= Jeu::find($id);
+       //$typeJeu=TypeJeu::find($request->GET('typejeu'));
+        $unJeu->typeJeus()->attach($request->get('typeJeu'));
+        
+        return redirect(route('jeu.index'));
     }
 
     /**

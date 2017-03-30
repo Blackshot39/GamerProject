@@ -23,6 +23,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::resource('categorie', 'CategorieController');
     Route::put('user/{id}/ban', 'UserController@ban')->name('user.ban');
     Route::put('user/{id}/deban', 'UserController@deban')->name('user.deban');
+    Route::get('/jeu/addtype/{id}','JeuController@addTypeJeu')->name('jeu.addTypeJeu');
+    Route::put('/jeu/store/{id}','JeuController@storeTypeJeu')->name('jeu.storeTypeJeu');
 });
 
 

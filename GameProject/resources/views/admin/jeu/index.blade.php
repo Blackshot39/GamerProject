@@ -46,6 +46,7 @@
                                                      </div>
                                                  
                                                   <a href="{{route('jeu.edit', $jeu->id)}}"><button type="button" class="btn btn-success"><i class="fa fa-lg fa-pencil"></i></button></a>
+                                                  <a href="{{route('jeu.addTypeJeu', $jeu->id)}}"><button type="button" class="btn btn-primary"><i class="fa fa-lg fa-plus"></i></button></a>
                                              
                                              </td>
                                          </tr>
