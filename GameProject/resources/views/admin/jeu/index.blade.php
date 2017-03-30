@@ -21,7 +21,7 @@
                                              <td>{{$jeu["nom"]}}</td>                                                 
                                              <td>{{$jeu["description"]}}</td>
                                              <td>{{$jeu["dateSortie"]}}</td>
-                                             <td><img src="{{'/GamerProject/GameProject/public/images/jeu/mini/'.$jeu["photo"]}} "> </td>
+                                             <td><img src="{{url('/').'/images/jeu/mini/'.$jeu->photo}}"> </td>
                                              <td> 
                                                  <a data-toggle="modal" data-target="#myModal{{$jeu->id}}"><button type="button" class="btn btn-danger"><i class="fa fa-lg fa-trash"></i></button></a>
                                                  <!-- Modal supprimer -->

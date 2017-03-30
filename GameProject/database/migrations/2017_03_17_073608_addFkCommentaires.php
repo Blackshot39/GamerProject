@@ -13,14 +13,14 @@ class AddFkCommentaires extends Migration
      */
     public function up()
     {
-        Schema::table('commentaires', function (Blueprint $table) {
-            $table->integer('sujet_id')->unsigned(); 
-            $table->foreign('sujet_id')->references('id')->on('sujets');
-            $table->integer('actualite_id')->unsigned(); 
-            $table->foreign('actualite_id')->references('id')->on('actualites');
-            $table->integer('user_id')->unsigned(); 
-            $table->foreign('user_id')->references('id')->on('users');
-       });
+//        Schema::table('commentaires', function (Blueprint $table) {
+//            $table->integer('sujet_id')->unsigned(); 
+//            $table->foreign('sujet_id')->references('id')->on('sujets');
+//            $table->integer('actualite_id')->unsigned(); 
+//            $table->foreign('actualite_id')->references('id')->on('actualites');
+//            $table->integer('user_id')->unsigned(); 
+//            $table->foreign('user_id')->references('id')->on('users');
+//       });
     }
 
     /**

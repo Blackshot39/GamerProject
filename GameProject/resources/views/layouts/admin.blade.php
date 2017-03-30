@@ -101,10 +101,7 @@
                         </li>
                         <li>
                             <a href="#" target="_blank"><i class="fa fa-external-link-square"></i> Site public</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-dashboard fa-fw"></i> Tableau de bord</a>
-                        </li>
+                        </li>                        
                         <li>
                             <a href="{{route('user.index')}}"><i class="fa fa-users"></i> Utilisateurs</a>
                         </li>
@@ -112,83 +109,56 @@
                             <a href="#"><i class="fa fa-newspaper-o"></i> Actualités<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="#">Afficher</a> <!-- voir/modifier/supprimer-->
+                                    <a href="{{route('actualite.index')}}">Afficher</a> <!-- voir/modifier/supprimer-->
                                 </li>
                                 <li>
-                                    <a href="#">Créer</a>
+                                    <a href="{{route('actualite.create')}}">Créer</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
-                        </li>                        
-                        <li>
-                            <a href="#"><i class="fa fa fa-star"></i> Promotions<span class="fa arrow"></span></a>
+                        </li>  
+                        <li>                        
+                            <a href="#"><i class="fa fa-newspaper-o"></i> Catégories d'actualité<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="#">Afficher</a> <!-- voir/modifier/supprimer-->
+                                    <a href="{{route('categorie.index')}}">Afficher</a> <!-- voir/modifier/supprimer-->
                                 </li>
                                 <li>
-                                    <a href="#">Créer</a>
+                                    <a href="{{route('categorie.create')}}">Créer</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
-                        </li>
+                        </li> 
                         <li>
-                            <a href="#"><i class="fa fa-quote-right"></i> Présentation entreprise (accueil)</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-envelope"></i> Moyens de contact</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-balance-scale"></i> Mentions légales</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-clock-o"></i> Horaires<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa fa-star"></i> Jeux<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="#">Afficher</a> <!-- voir/modifier/supprimer-->
+                                    <a href="{{route('jeu.index')}}">Afficher</a> <!-- voir/modifier/supprimer-->
                                 </li>
                                 <li>
-                                    <a href="#">Ajouter</a>
+                                    <a href="{{route('jeu.create')}}">Créer</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-calendar"></i> Période spéciales<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa fa-star"></i> Types de jeu<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="#">Afficher</a> <!-- voir/modifier/supprimer-->
+                                    <a href="{{route('typejeu.index')}}">Afficher</a> <!-- voir/modifier/supprimer-->
                                 </li>
                                 <li>
-                                    <a href="#">Ajouter</a>
+                                    <a href="{{route('typejeu.create')}}">Créer</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
-                        <li>
-                            <a href="#"><i class="fa fa-picture-o"></i> Images<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="#">Afficher</a> <!-- voir/modifier/supprimer-->
-                                </li>
-                                <li>
-                                    <a href="#">Créer</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-folder"></i> Galeries<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="#">Afficher</a> <!-- voir/modifier/supprimer-->
-                                </li>
-                                <li>
-                                    <a href="#">Créer</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
+                        
+                        
+                        
+                       
+                        
+                       
                         
                         
                         
@@ -286,7 +256,7 @@ if ( typeof oldIE === 'undefined' && Object.keys && typeof hljs !== 'undefined')
 };
 </script>
 
-<script>
+<script> //script pour les DataTables (tableau dynamique)
             $(document).ready(function() {
     $('#example').DataTable();
 } );

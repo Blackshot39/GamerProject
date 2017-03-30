@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCommentairesTable extends Migration
+class CreatePostesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateCommentairesTable extends Migration
      */
     public function up()
     {
-//        Schema::create('commentaires', function (Blueprint $table) {
-//            $table->increments('id');
-//            $table->text('description');
-//            $table->timestamps();
-//            $table->engine = "InnoDB";
-//        });
+        Schema::create('postes', function (Blueprint $table) {
+            $table->increments('id');
+            $table->text('description');
+            $table->timestamps();
+            $table->boolean('signale');
+            $table->engine='InnoDB';
+        });
     }
 
     /**
@@ -28,6 +29,6 @@ class CreateCommentairesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('commentaires');
+        Schema::dropIfExists('postes');
     }
 }

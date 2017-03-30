@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sujet extends Model
 {
-    public function commentaires()
-     {
-     	return $this->hasMany('App\Models\Commentaire');
-     }
+//    public function commentaires()
+//     {
+//     	return $this->hasMany('App\Models\Commentaire');
+//     }
     
     public function jeus()
      {
@@ -20,4 +20,10 @@ class Sujet extends Model
      {
      	return $this->belongsTo('App\Models\User');
      }
+     
+      public function postes()
+     {
+     	return $this->hasMany('App\Models\Poste');
+     }
+     
 }
