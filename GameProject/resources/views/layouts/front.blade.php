@@ -55,7 +55,7 @@
 						</li>
 						
 						<li>
-							<a href="#section-features">Features</a>
+							<a href="#section-features">Forum</a>
 						</li>
 						
 						<li>
