@@ -32,5 +32,5 @@ Auth::routes();
 
 //route du site public
 Route::get('/','HomePublicController@index')->name('homePublic.index');
-
+Route::get('/jeu','JeuController@indexFront')->name('jeu.indexFront');
 

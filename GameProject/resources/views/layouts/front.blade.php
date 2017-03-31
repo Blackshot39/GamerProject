@@ -12,11 +12,20 @@
 	<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="{{url('css/bootstrap.min.css')}}" />
 	<link rel="stylesheet" href="{{url('css/front.css')}}" />
-	
-	
+	<!-- DataTable (filtertable)-->
+    
+
+    
+    
 	<script src="{{url('js/jquery.min.js')}}"></script>
 	<script src="{{url('js/bootstrap.min.js')}}"></script>
-	
+	<script src="{{url('js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{url('js/dataTables.bootstrap.min.js')}}"></script>
+	<script> //script pour les DataTables (tableau dynamique)
+            $(document).ready(function() {
+    $('#example').DataTable();
+} );
+</script>
 	
 </head>
 <body>
@@ -35,14 +44,14 @@
 						<span class="icon-bar"></span>
 					</button>
 
-					<a  class="navbar-brand" href="#">Lucid</a>
+					<a  class="navbar-brand" href="{{route('homePublic.index')}}">GamerProject</a>
                                         
 				</div><!-- /.navbar-header -->
 
 				<div class="collapse navbar-collapse" id="nav">
 					<ul class="nav navbar-nav navbar-right">
 						<li class="active">
-							<a href="#header">Home</a>
+							<a href="{{route('homePublic.index')}}">Home</a>
 						</li>
 						
 						<li>
@@ -50,7 +59,7 @@
 						</li>
 						
 						<li>
-							<a href="#section-about">About</a>
+							<a href="{{route('jeu.indexFront')}}">Jeux</a>
 						</li>
 						
 						<li>
@@ -65,7 +74,7 @@
 							<a href="#section-contacts">Contact</a>
 						</li>
                                                 <li>
-							<a href="#section-contacts">Login</a>
+							<a href="{{route('login')}}">Login</a>
 						</li>
 					</ul>
 				</div>

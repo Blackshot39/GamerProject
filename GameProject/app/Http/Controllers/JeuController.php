@@ -214,4 +214,10 @@ class JeuController extends Controller
         $request->session()->flash('success', 'Jeu supprimée');
         return redirect (route('jeu.index'));
     }
+    
+    public function indexFront()
+    {
+        $lesJeux = Jeu::paginate(20);
+        return view('front/jeu/index')->with('lesJeux',$lesJeux);
+    }
 }
