@@ -36,3 +36,5 @@ Route::resource('forum', 'SujetController');
 
 
 Route::get('/jeu','JeuController@indexFront')->name('jeu.indexFront');
+Route::put('jeu/{id}/ajouter', 'JeuController@ajouter')->name('jeu.ajouter');
+Route::put('user/{id}/retirer', 'JeuController@retirer')->name('jeu.retirer');

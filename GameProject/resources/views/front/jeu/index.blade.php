@@ -32,9 +32,18 @@
                                              <td>{{$jeu["dateSortie"]}}</td>
                                              <td><img src="{{url('/').'/images/jeu/mini/'.$jeu->photo}}"> </td>
                                              <td> 
+                                                 <!--If pour si l'attach existe-->
+                                                 
                                                 
-                                                  <a href="#"><button type="button" class="btn btn-primary"><i class="fa fa-lg fa-plus"></i></button></a>
-                                             
+                                              
+                                               {!! Form::open(['route' => ['jeu.retirer', $jeu->id], 'method' => 'put']) !!}
+                                               {!! Form::submit('retirer',['class'=>'btn btn-warning']) !!}
+                                               {!! Form::close() !!}
+                                               
+                                               {!! Form::open(['route' => ['jeu.ajouter', $jeu->id], 'method' => 'put']) !!}
+                                               {!! Form::submit('ajouter',['class'=>'btn btn-warning']) !!}
+                                               {!! Form::close() !!}
+                                              
                                              </td>
                                          </tr>
                                             @endforeach   
