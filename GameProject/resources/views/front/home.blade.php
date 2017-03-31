@@ -7,24 +7,20 @@
 				<div class="row">
 					<div class="col-md-6">
 						<div class="jumbotron-content">
-							<h5>Introducing Lucid Theme</h5>
+							<h5>Site web consacrée au jeux vidéo</h5>
 							
-							<h1>Carefully crafted and beautiful landing page.</h1>
+							<h1>Toutes les news sur les jeux vidéo</h1>
 							
-							<p>Etiam ullamcorper et turpis eget hendrerit. Praesent varius risus mi, at elementum magna ultricies acum magna ultricies accumsan. Cras venenatis lacus sed dolor placerat tempus. Morbi blandit at neque ut imperdiet.</p>
+							<p>Ainsi que la possibilité de trouver des amis de la meme plateforme pour jouer ensemble. </p>
 													
-							<div class="jumbotron-actions">
-								<a href="#" class="btn btn-primary">Download Now</a>
-													
-								<a href="#" class="btn btn-dark">View Features</a>
-							</div><!-- /.jumbotron-actions -->
+
 						</div><!-- /.jumbotron-content -->
 					</div><!-- /.col-md-6 -->
 					
 					<div class="col-md-6">
-						<div class="jumbotron-image">
-							<img src="css/images/temp/jumbotron-image.png" height="519" width="505" alt="">
-						</div><!-- /.jumbotron-image -->
+						
+							<img src="images/site/img2.jpg" height="450" width="450" alt="">
+						<!-- /.jumbotron-image -->
 					</div><!-- /.col-md-6 -->
 				</div><!-- /.row -->
 			</div><!-- /.container -->
@@ -38,17 +34,72 @@
 	<section class="section section-features" id="section-features">
 		<div class="container">
 			<header class="section-head">
-				<h5>Product Overview</h5>
+				
 			
-				<h2 class="section-title">List of amazing features</h2><!-- /.section-title -->
+				<h2 class="section-title">Dernier actualiter</h2><!-- /.section-title -->
 			</header><!-- /.section-head -->
 			
 			<div class="section-body">
 				<div class="features">
 					<div class="row">
 						
+                                                <div class="container">
+                         
+                         @foreach ($lesActualites as $actualite)
+    @if ($actualite->id == 1)
+<div class="col-md-4 col-sm-4">
+
+        <p><hcom>Titre : </hcom>
+        <hblanc>{{ $actualite->titre }}</hblanc></p>
+        <p><hcom>Description : </hcom>
+        <hblanc>{{ $actualite->description}}</hblanc></p>
+        <p><hcom>Date : </hcom>
+        <hblanc>{{ $actualite->date }}</hblanc></p>
+        <p><hcom>Categorie : </hcom>
+        <hblanc>{{ $actualite->categorie }}</hblanc></p>
+        
+
+</div>
+    @endif
+
+
+    @if ($actualite>id == 2)
+<div class="col-md-4 col-sm-4">
+
+        <p><hcom>Titre : </hcom>
+        <hblanc>{{ $actualite->titre }}</hblanc></p>
+        <p><hcom>Description : </hcom>
+        <hblanc>{{ $actualite->description}}</hblanc></p>
+        <p><hcom>Date : </hcom>
+        <hblanc>{{ $actualite->date }}</hblanc></p>
+        <p><hcom>Categorie : </hcom>
+        <hblanc>{{ $actualite->categorie }}</hblanc></p>
+        
+
+</div>
+    @endif
+                       
+        @if ($actualite->id == 3)
+<div class="col-md-4 col-sm-4">
+
+        <p><hcom>Titre : </hcom>
+        <hblanc>{{ $actualite->titre }}</hblanc></p>
+        <p><hcom>Description : </hcom>
+        <hblanc>{{ $actualite->description}}</hblanc></p>
+        <p><hcom>Date : </hcom>
+        <hblanc>{{ $actualite->date }}</hblanc></p>
+        <p><hcom>Categorie : </hcom>
+        <hblanc>{{ $actualite->categorie }}</hblanc></p>
+        
+
+</div>
+    @endif
+
+@endforeach
+</div>                          
                                             
                                             
+                                            {{$lesActualites->links()}}
 					</div><!-- /.row -->
 				</div><!-- /.features -->
 			</div><!-- /.section-body -->
