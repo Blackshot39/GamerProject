@@ -32,9 +32,6 @@
                                 </table>
         
     </div>
-    </div>
-    @if (Session::has('sucess'))
-    {{Session::get('success')}}
-    @endif
-</html>                         
+    
+                        
 @stop

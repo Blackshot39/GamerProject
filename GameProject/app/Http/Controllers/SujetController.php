@@ -16,7 +16,7 @@ class SujetController extends Controller
     public function index()
     {
         $lesSujets=Sujet::paginate(20);
-        return view('admin/sujet/index')->with('lesSujets',$lesSujets);
+        return view('front/sujet/index', compact('lesSujets'));
     }
 
     /**
@@ -26,7 +26,7 @@ class SujetController extends Controller
      */
     public function create()
     {
-        return view('admin/sujet/create');
+        return view('front/sujet/create');
     }
 
     /**

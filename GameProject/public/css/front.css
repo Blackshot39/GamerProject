@@ -129,7 +129,7 @@ td { padding: 0; }
 	#Header
 \* ================================================================ */
 
-.header { min-height: 640px; background: #15141a url(images/header-bg.jpg) no-repeat 0 0; background-size: cover; }
+.header {  background: #15141a url(images/header-bg.jpg) no-repeat 0 0; background-size: cover; }
 
 .navbar { margin-bottom: 26px; }
 .navbar > .container .navbar-brand { height: 18px; padding: 0; background: url(../images/site/sprite.png) no-repeat 0 0; font-size: 0; line-height: 0; text-indent: -4000px; margin: 40px 0 0; width: 120px; }
