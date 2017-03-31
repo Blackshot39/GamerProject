@@ -35,15 +35,15 @@
                                                  <!--If pour si l'attach existe-->
                                                  
                                                 
-                                              
+                                             
                                                {!! Form::open(['route' => ['jeu.retirer', $jeu->id], 'method' => 'put']) !!}
                                                {!! Form::submit('retirer',['class'=>'btn btn-warning']) !!}
                                                {!! Form::close() !!}
-                                               
+                                              
                                                {!! Form::open(['route' => ['jeu.ajouter', $jeu->id], 'method' => 'put']) !!}
                                                {!! Form::submit('ajouter',['class'=>'btn btn-warning']) !!}
                                                {!! Form::close() !!}
-                                              
+                                             
                                              </td>
                                          </tr>
                                             @endforeach   
