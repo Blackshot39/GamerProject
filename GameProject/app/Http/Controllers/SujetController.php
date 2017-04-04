@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Sujet;
 use Validator;
+use App\Models\Jeu;
+use App\Models\Poste;
+use Illuminate\Support\Facades\Auth;
+
 
 class SujetController extends Controller
 {
@@ -26,7 +30,8 @@ class SujetController extends Controller
      */
     public function create()
     {
-        return view('front/sujet/create');
+        $lesJeux = Jeu::orderBy('nom')->pluck('nom', 'id');
+        return view('front/sujet/create', compact('lesJeux'));
     }
 
     /**
@@ -44,18 +49,25 @@ class SujetController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect('admin/sujet/create')
+            return redirect('front/sujet/create')
                         ->withErrors($validator)
                         ->withInput();
         }
         else
         {
+            
          $unSujet= new Sujet();
-         $unSujet->titre=$request->get('titre');
-         //ajouter le 1er commentaire
-         $unSujet->save();
+         $unSujet->titre=$request->get('titre'); 
+         $unSujet->jeu_id = $request->get('jeu'); 
+         $unSujet->save();         
+         $unPoste = New Poste();
+         $unPoste->description = $request->get('desc');
+         $unPoste->sujet_id = $unSujet->id;
+         $unPoste->user_id = Auth::id();   
+         $unPoste->signale=false;
+         $unPoste->save();
          $request->session()->flash('success', 'Sujet crée.');
-        return redirect(route('sujet.index'));
+        return redirect(route('sujet.show', $unSujet->id));
         }
     }
 
@@ -67,8 +79,9 @@ class SujetController extends Controller
      */
     public function show($id)
     {
-                        $unSujet=Sujet::find($id);
-        return view('admin/sujet/show');
+        $unSujet=Sujet::find($id);
+        //$lesPostes = $unSujet::orderBy('id')->paginate(10);
+        return view('front/sujet/show', compact ('unSujet'/*, 'lesPostes'*/));
     }
 
     /**

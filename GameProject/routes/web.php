@@ -32,7 +32,7 @@ Auth::routes();
 
 //route du site public
 Route::get('/','HomePublicController@index')->name('homePublic.index');
-Route::resource('forum', 'SujetController');
+Route::resource('sujet', 'SujetController');
 
 
 Route::get('/jeu','JeuController@indexFront')->name('jeu.indexFront');

@@ -12,6 +12,8 @@
 	<link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" href="{{url('css/bootstrap.min.css')}}" />
 	<link rel="stylesheet" href="{{url('css/front.css')}}" />
+        <link href="{{url('css/perso.css')}}" rel="stylesheet" type="text/css">
+        
 	<!-- DataTable (filtertable)-->
     
 
