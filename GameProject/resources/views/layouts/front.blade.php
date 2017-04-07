@@ -66,7 +66,7 @@
 						</li>
 						
 						<li>
-							<a href="#section-testimonials">Testimonials</a>
+							<a href="{{route('actualite.indexFront')}}">Actualité</a>
 						</li>
 						
 						<li>
