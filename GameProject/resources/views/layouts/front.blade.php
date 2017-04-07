@@ -76,9 +76,32 @@
 						<li>
 							<a href="#section-contacts">Contact</a>
 						</li>
-                                                <li>
-							<a href="{{route('login')}}">Login</a>
-						</li>
+                                                    <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        @if (Auth::check())
+                        <i class="fa fa-user fa-fw"></i> {{Auth::user()->name}} <i class="fa fa-caret-down"></i>
+                        @else
+                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                        @endif
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                         @if (Auth::check()==false)
+                        <li><a href="{{route('login')}}"><i class="fa fa-user fa-fw"></i> Se connecter</a>
+                        </li>
+                        @endif
+                        @if (Auth::check())
+                        <li><a href="{{route('user.myAccount')}}"><i class="fa fa-gear fa-fw"></i> Mon compte</a>
+                        </li>                       
+                        <li class="divider"></li>
+                        <li>
+                            
+                            {{ Form::open(['route' => ['logout']]) }}
+                             <button type="submit" class="btn btn-default"><span class="fa fa-power-off" aria-hidden="true"></span> Se déconnecter</button>
+                            {{ Form::close() }}                            
+                        </li>
+                        @endif
+                    </ul>
+                                                    </li>
 					</ul>
 				</div>
 			</div><!-- /.container -->

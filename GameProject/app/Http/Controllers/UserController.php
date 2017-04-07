@@ -287,6 +287,12 @@ class UserController extends Controller
         }
         
     }
+    
+    public function profilFront($id)
+    {
+         $unUser = User::Find($id);   
+        return view('front/user/profil', compact('unUser'));
+    }
 
      
 }

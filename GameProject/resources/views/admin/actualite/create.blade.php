@@ -50,7 +50,7 @@
 </div>
     <div class="form-group">
         {{ Form::label('Categorie') }}
-        {{ Form::select('categorie',$lesCategories,'',['class'=>'form-control']) }}
+        {{ Form::select('lesCategories',$lesCategories,'',['class'=>'form-control']) }}
     </div>
 <button type="submit" class=" btn btn-primary center-block">Créer</button>
 </div>

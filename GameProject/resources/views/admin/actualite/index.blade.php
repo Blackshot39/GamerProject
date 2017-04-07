@@ -5,7 +5,7 @@
 <h1 class="page-header">Les Actualites</h1>
 <div class="row show-grid" style='text-align: center'>
     {{ Form::open(['route' => 'actualite.create', 'method' => 'get'])}}
-        {{ Form::submit('Laisser un Commentaire',['class'=>'btn btn-primary']) }}
+        {{ Form::submit('Laisser une actualiter',['class'=>'btn btn-primary']) }}
     {{ Form::close() }}              
 </div>
     <div class="table-responsive">

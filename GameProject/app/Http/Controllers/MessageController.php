@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Validator;
 use App\Models\Message;
+use App\Models\User;
 
 class MessageController extends Controller
 {
@@ -26,7 +27,7 @@ class MessageController extends Controller
      */
     public function create()
     {
-        return view('admin/message/create');
+       
     }
 
     /**
@@ -99,4 +100,11 @@ class MessageController extends Controller
         $request->session()->flash('success', 'La Message a été supprimée !');
         return redirect(route('message.index'));
     }
+    
+    public function createFront($id)
+    {
+        $destinataire = User::find($id);
+        return view('front/message/create',compact('destinataire'));
+    }
+    
 }
