@@ -12,7 +12,12 @@ class Poste extends Model
      	return $this->belongsTo('App\Models\Sujet');
      }
 
-    public function users()
+    public function user()
+     {
+     	return $this->belongsTo('App\Models\User');
+     }
+     
+     public function users()
      {
      	return $this->belongsTo('App\Models\User');
      }

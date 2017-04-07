@@ -7,7 +7,7 @@
 		<div class="container">
 			<header class="section-head">
 				
-				<h2 class="section-title">List des jeux</h2><!-- /.section-title -->
+				<h2 class="section-title">Liste des jeux</h2><!-- /.section-title -->
 			</header><!-- /.section-head -->
                         <div class="section-body">
 				<div class="features">
@@ -32,8 +32,20 @@
                                              <td>{{$jeu["dateSortie"]}}</td>
                                              <td><img src="{{url('/').'/images/jeu/mini/'.$jeu->photo}}"> </td>
                                              <td> 
-                                                
-                                                  <a href="#"><button type="button" class="btn btn-primary"><i class="fa fa-lg fa-plus"></i></button></a>
+                                                 <!--If pour si l'attach existe-->
+                                             
+                                               
+                                             
+                                               {!! Form::open(['route' => ['jeu.retirer', $jeu->id], 'method' => 'put']) !!}
+                                               {!! Form::submit('retirer',['class'=>'btn btn-warning']) !!} 
+                                               {!! Form::close() !!}
+                                        
+                                               {!! Form::open(['route' => ['jeu.ajouter', $jeu->id], 'method' => 'put']) !!}
+                                               {!! Form::submit('ajouter',['class'=>'btn btn-warning']) !!}
+                                               {!! Form::close() !!}
+                                             
+                                               <a href="{{route('jeu.showUser',$jeu->id)}}"><button type="button" class="btn btn-success">Voir joueur</button></a>
+                                               
                                              
                                              </td>
                                          </tr>

@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 use App\Models\Jeu;
 use App\Models\TypeJeu;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Intervention\Image\ImageManager;
 use Validator;
 use Image;
 use File;
+use Illuminate\Support\Facades\Auth;
 
 class JeuController extends Controller
 {
@@ -19,7 +21,7 @@ class JeuController extends Controller
      */
     public function index()
     {
-        $lesJeux = Jeu::paginate(20);
+        $lesJeux = Jeu::all();
         return view('admin/jeu/index')->with('lesJeux',$lesJeux);
     }
 
@@ -219,5 +221,28 @@ class JeuController extends Controller
     {
         $lesJeux = Jeu::paginate(20);
         return view('front/jeu/index')->with('lesJeux',$lesJeux);
+    }
+    
+    public function ajouter($id)
+    {
+        $user = user::find(Auth::user()->id);
+        $unJeu = Jeu::find($id);
+        $unJeu->users()->attach($user);
+        $unJeu->update();
+        return redirect(route('jeu.indexFront'));
+    }
+    
+    public function retirer($id)
+    {
+        $unJeu = Jeu::find($id);
+        $unJeu->users()->detach();
+        $unJeu->update();
+        return redirect(route('jeu.indexFront'));
+    }   
+    
+    public function showUser($id)
+    {
+         $unJeu=  Jeu::find($id);
+        return view ('front/jeu/showUser ', compact('unJeu'));
     }
 }
