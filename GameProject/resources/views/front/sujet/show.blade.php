@@ -47,7 +47,7 @@
                                                 </div>
                                                 <div class="coupe-block"></div>
 								<div class="user col-xs-4 col-md-3 col-lg-2"> 
-                                                                    <div class="user-name"><a href="route('user.profilFront', $poste->user->id)">{{$poste->user->name}}</a></div>
+                                                                    <div class="user-name"><a href="{{route('user.profilFront', $poste->user->id)}}">{{$poste->user->name}}</a></div>
                                                                     <div>{{$poste->user->statut}}</div>
                                                                     @if($poste->user->avatar != null)
                                                                     <img src="{{url('/images/user/avatar/'.$poste->user->avatar)}}" alt="" class="img-responsive">
@@ -71,7 +71,7 @@
 
                                             {{ $lesPostes->links() }}
                                                         
-                                            @if($unSujet->ferme == false)
+                                            @if($unSujet->ferme == false && Auth::check() == true)
                                             
                                                 {!! Form::open(array('method' => 'PUT', 'route' => ['poste.repondre', $unSujet->id], 'class' => 'form-horizontal')) !!}                        
                                                  <div class="form-group">
@@ -95,7 +95,6 @@
                                             
                                             @endif
                                             
-                                            <br> +if admin/modo = btn lock sujet / edit poste
                                             
                                             
 					

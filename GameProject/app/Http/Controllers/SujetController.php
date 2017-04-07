@@ -131,16 +131,25 @@ class SujetController extends Controller
     {
         $unSujet = Sujet::find($id);
         $unSujet->ferme = true;
+        
         $unSujet->update();
-        return redirect (route('sujet.show' ,$id));
+        return redirect (route('sujet.sujetsUnJeu', $unSujet->jeu->id));
     }
     
      public function ouvrir($id)
     {
         $unSujet = Sujet::find($id);
         $unSujet->ferme = false;
+        
         $unSujet->update();
-        return redirect (route('sujet.show' ,$id));
+        return redirect (route('sujet.sujetsUnJeu', $unSujet->jeu->id));
     }
     
+    public function sujetsUnJeu($idJeu)
+    {
+        $lesSujets = Sujet::where('jeu_id', $idJeu)->paginate(20);
+          //dd($lesSujets);   
+        return view('front/sujet/sujetparjeu', compact('lesSujets'));
+                
+    }
 }
