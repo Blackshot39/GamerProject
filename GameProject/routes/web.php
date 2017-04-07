@@ -47,3 +47,4 @@ Route::put('sujet/{id}/repondre', 'PosteController@repondre')->name('poste.repon
 Route::put('sujet/{id}/fermer', 'SujetController@fermer')->name('sujet.fermer');
 Route::put('sujet/{id}/ouvrir', 'SujetController@ouvrir')->name('sujet.ouvrir');
 Route::resource('poste', 'PosteController');
+Route::get('sujet/jeu/{idJeu}', 'SujetController@sujetsUnJeu')->name('sujet.sujetsUnJeu');

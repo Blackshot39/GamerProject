@@ -15,6 +15,11 @@ class Sujet extends Model
      {
      	return $this->belongsTo('App\Models\Jeu');
      }
+     
+     public function jeu()
+     {
+     	return $this->belongsTo('App\Models\Jeu');
+     }
 
     public function users()
      {
@@ -22,6 +27,11 @@ class Sujet extends Model
      }
      
       public function postes()
+     {
+     	return $this->hasMany('App\Models\Poste');
+     }
+     
+     public function poste()
      {
      	return $this->hasMany('App\Models\Poste');
      }
