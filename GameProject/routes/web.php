@@ -51,3 +51,5 @@ Route::resource('poste', 'PosteController');
 Route::get('profil/{id}','UserController@profilFront')->name('user.profilFront');
  Route::resource('message', 'MessageController');
  Route::get('message/create/destinataire/{id}','MessageController@createFront')->name('message.createFront');
+
+Route::get('/actualite','ActualiteController@indexFront')->name('actualite.indexFront');
