@@ -42,3 +42,8 @@ Route::put('user/{id}/retirer', 'JeuController@retirer')->name('jeu.retirer');
 Route::get('test', function(){
     return view('front/test');
 })->name('test');
+
+Route::put('sujet/{id}/repondre', 'PosteController@repondre')->name('poste.repondre');
+Route::put('sujet/{id}/fermer', 'SujetController@fermer')->name('sujet.fermer');
+Route::put('sujet/{id}/ouvrir', 'SujetController@ouvrir')->name('sujet.ouvrir');
+Route::resource('poste', 'PosteController');

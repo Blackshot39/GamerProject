@@ -44,7 +44,8 @@ class SujetController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'titre' => 'required|max:255',
-              
+              'jeu' => 'required',
+            'desc' => 'required|max:65535|min:10',
            
         ]);
 
@@ -80,8 +81,8 @@ class SujetController extends Controller
     public function show($id)
     {
         $unSujet=Sujet::find($id);
-        //$lesPostes = $unSujet::orderBy('id')->paginate(10);
-        return view('front/sujet/show', compact ('unSujet'/*, 'lesPostes'*/));
+        $lesPostes = Poste::orderBy('id')->where('sujet_id', $id)->paginate(10);
+        return view('front/sujet/show', compact ('unSujet', 'lesPostes'));
     }
 
     /**
@@ -125,4 +126,21 @@ class SujetController extends Controller
         $request->session()->flash('success', 'La Copropriete a été supprimée !');
         return redirect(route('sujet.index'));
     }
+    
+    public function fermer($id)
+    {
+        $unSujet = Sujet::find($id);
+        $unSujet->ferme = true;
+        $unSujet->update();
+        return redirect (route('sujet.show' ,$id));
+    }
+    
+     public function ouvrir($id)
+    {
+        $unSujet = Sujet::find($id);
+        $unSujet->ferme = false;
+        $unSujet->update();
+        return redirect (route('sujet.show' ,$id));
+    }
+    
 }

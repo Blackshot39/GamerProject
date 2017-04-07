@@ -12,4 +12,14 @@ class User extends Model
         return $this->hasMany('App\Models\User');
     }
     
+    public function postes()
+    {
+        return $this->hasMany('App\Models\Poste');
+    }
+    
+    public function commentaires()
+    {
+        return $this->hasMany('App\Models\Commentaire');
+    }
+    
 }

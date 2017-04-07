@@ -22,61 +22,87 @@
                         <div class="section-body">
                                 <div class="features">
                                         <div class="row">
-
-                                            <div class="col-md-12 col-sm-12">
-							<div class="plan">
-								<div class="plan-head">
-									<h3 class="plan-title">Quel sont les meilleur citation du jeu ?</h3><!-- /.plan-title -->
-									Par Requetor le 31/03/2017 10h50
-								</div><!-- /.plan-head -->
-								Dernier message par Blackshot39 le 31/03/2017 11h14
-                                                                <br>
-                                                                37 réponses
+                                            
+                                            @if(Auth::user()->statut == "Admin" || Auth::user()->statut == "Moderateur")
+                                                {{ Form::open(['methode' => 'PUT', 'route' => ['sujet.fermer', $unSujet->id]]) }}
+                                                    <button type="submit" class=" btn btn-primary btn-statut-sujet">Fermer le sujet</button>
+                                                {{ Form::close() }}   
+                                            @else
+                                                {{ Form::open(['methode' => 'PUT', 'route' => ['sujet.ouvrir', $unSujet->id]]) }}
+                                                    <button type="submit" class=" btn btn-primary btn-statut-sujet">Ouvrir le sujet</button>
+                                                {{ Form::close() }}   
+                                            @endif
+                                            
+                                            
+                                            @foreach ($lesPostes as $poste)
+                                            
+                                            
+                                            <div class="bloc-poste col-xs-12 col-md-12 col-lg-12">
+                                                <div class="barre-haut-poste">
+                                                    <div id="date-poste">{{$poste->created_at}} -</div>
+                                                    <div id="signaler-poste"><a href="#"> Signaler</a></div>
+                                                    @if(Auth::user()->id == $poste->user->id || Auth::user()->statut == "Admin" || Auth::user()->statut == "Moderateur")
+                                                    <div id="signaler-poste"> - <a href="{{route('poste.edit', $poste->id)}}"> Editer</a></div>
+                                                    @endif
+                                                </div>
+                                                <div class="coupe-block"></div>
+								<div class="user col-xs-4 col-md-3 col-lg-2"> 
+                                                                    <div class="user-name"><a href="route('user.profilFront', $poste->user->id)">{{$poste->user->name}}</a></div>
+                                                                    <div>{{$poste->user->statut}}</div>
+                                                                    @if($poste->user->avatar != null)
+                                                                    <img src="{{url('/images/user/avatar/'.$poste->user->avatar)}}" alt="" class="img-responsive">
+                                                                    @else
+                                                                    <img src="{{url('/images/user/default.png')}}" alt="" class="img-responsive">
+                                                                    @endif
+                                                                   <?php $nbPosteOfUser = $poste->user->postes()->count(); ?>
+                                                                    @if ($nbPosteOfUser > 1)
+                                                                    <div>Messages : {{$nbPosteOfUser}}</div>  
+                                                                    @else
+                                                                    <div>Message : {{$nbPosteOfUser}}</div>  
+                                                                    @endif
+                                                                    
+								</div>
+                                                            <div class="bloc-message col-xs-8 col-md-9 col-lg-10">
+                                                               {!! nl2br(e($poste->description)) !!}
+                                                            </div>
 								
-							</div><!-- /.plan -->
-						</div><!-- /.col-md-3 col-sm-6 -->
-                                           
-                                        <!--foreach ($unSujet->postes as $poste)-->
-<!--                                        <div class="well"> 
-                                            <div class="bloc-user">
-                                                $poste->users()->name}}
-                                                <img src="$poste->users()->avatar">
-                                                Nombre de messages : xxx
-                                            </div>
-                                            <div class="message-poste">
-                                                Salut tout le monde
-                                                comment
-                                                ca
-                                                va
-                                                
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="well"> dd($poste)}}
-                                            <div class="bloc-user">
-                                                $poste->users()->name}}
-                                                <img src="$poste->users()->avatar">
-                                                Nombre de messages : xxx
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="well"> dd($poste)}}
-                                            <div class="bloc-user">
-                                                $poste->users()->name}}
-                                                <img src="$poste->users()->avatar">
-                                                Nombre de messages : xxx
-                                            </div>
-                                        </div>-->
-                                          
+                                            </div><!-- /.poste -->
+                                            @endforeach
+
+                                            {{ $lesPostes->links() }}
+                                                        
+                                            @if($unSujet->ferme == false)
                                             
-                                           
-                                        <!--endforeach
-                                   
-    
-    {{ $lesPostes->links() -->
-                                                          
+                                                {!! Form::open(array('method' => 'PUT', 'route' => ['poste.repondre', $unSujet->id], 'class' => 'form-horizontal')) !!}                        
+                                                 <div class="form-group">
+                                                  {!! Form::label('desc', 'Message :',['class' => 'col-lg-2 control-label'])!!}
+                                                   <div class="col-lg-10">
+                                                   {!! Form::textarea('desc',null, ['placeholder' => 'Votre message...','class' => 'form-control'])!!}
+                                                  </div>
+                                                 </div>
+                                                                   @if ($errors->has('desc'))
+                                                                   <div class="alert alert-danger" role="alert">
+                                                                           <ul>
+                                                                                   @foreach ($errors->get('desc') as $message) 
+                                                                                           <li>{{$message}}</li>
+                                                                                   @endforeach
+                                                                           </ul>
+                                                                   </div>
+                                                                   @endif
+                                                     <button type="submit" class=" btn btn-primary center-block">Répondre</button>
+                                                  
+                                                {!! Form::close() !!}
                                             
-					</div><!-- /.row -->
+                                            @endif
+                                            
+                                            <br> +if admin/modo = btn lock sujet / edit poste
+                                            
+                                            
+					
+                                        
+                                        
+                                        </div> <!-- /.row -->
+					
 				</div><!-- /.features -->
 			</div><!-- /.section-body -->
 		</div><!-- /.container -->

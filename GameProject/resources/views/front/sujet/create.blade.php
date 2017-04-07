@@ -15,7 +15,7 @@
                                         <div class="row">
                                             
 
-{!! Form::open(array('route' => 'sujet.store','class' => 'form-horizontal','files'=>true)) !!}
+{!! Form::open(array('route' => 'sujet.store','class' => 'form-horizontal')) !!}
 
 <div class="form-group">
       {!! Form::label('titre', 'Titre :',['class' => 'col-lg-2 control-label'])!!}
