@@ -66,7 +66,7 @@
 						</li>
 						
 						<li>
-							<a href="{{route('actualite.indexFront')}}">Actualité</a>
+							<a href="{{route('actualite.indexFront')}}">ActualitÃ©</a>
 						</li>
 						
 						<li>
