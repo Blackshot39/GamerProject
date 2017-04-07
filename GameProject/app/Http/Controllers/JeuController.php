@@ -21,7 +21,7 @@ class JeuController extends Controller
      */
     public function index()
     {
-        $lesJeux = Jeu::paginate(20);
+        $lesJeux = Jeu::all();
         return view('admin/jeu/index')->with('lesJeux',$lesJeux);
     }
 
@@ -239,4 +239,10 @@ class JeuController extends Controller
         $unJeu->update();
         return redirect(route('jeu.indexFront'));
     }   
+    
+    public function showUser($id)
+    {
+         $unJeu=  Jeu::find($id);
+        return view ('front/jeu/showUser ', compact('unJeu'));
+    }
 }

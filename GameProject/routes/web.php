@@ -36,9 +36,14 @@ Route::resource('forum', 'SujetController');
 
 
 Route::get('/jeu','JeuController@indexFront')->name('jeu.indexFront');
+Route::get('/jeu/{id}','JeuController@showUser')->name('jeu.showUser');
 Route::put('jeu/{id}/ajouter', 'JeuController@ajouter')->name('jeu.ajouter');
 Route::put('user/{id}/retirer', 'JeuController@retirer')->name('jeu.retirer');
 
 Route::get('test', function(){
     return view('front/test');
 })->name('test');
+
+Route::get('profil/{id}','UserController@profilFront')->name('user.profilFront');
+ Route::resource('message', 'MessageController');
+ Route::get('message/create/destinataire/{id}','MessageController@createFront')->name('message.createFront');

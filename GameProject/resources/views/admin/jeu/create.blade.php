@@ -51,7 +51,7 @@
     
       {!! Form::label('dateSortie','Date de sortie',['class' => 'col-lg-2 control-label'])!!}
       <div class="col-lg-10">
-      {!! Form::date('dateSortie','\Carbon\Carbon::now()',['class' => 'form-control'])!!}
+      {!! Form::date('dateSortie','',['class' => 'form-control'])!!}
       </div>
        @if ($errors->has('dateSortie'))
        <div class="alert alert-danger">
