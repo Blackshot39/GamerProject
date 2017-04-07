@@ -32,7 +32,7 @@ Auth::routes();
 
 //route du site public
 Route::get('/','HomePublicController@index')->name('homePublic.index');
-Route::resource('forum', 'SujetController');
+Route::resource('sujet', 'SujetController');
 
 
 Route::get('/jeu','JeuController@indexFront')->name('jeu.indexFront');
@@ -44,6 +44,10 @@ Route::get('test', function(){
     return view('front/test');
 })->name('test');
 
+Route::put('sujet/{id}/repondre', 'PosteController@repondre')->name('poste.repondre');
+Route::put('sujet/{id}/fermer', 'SujetController@fermer')->name('sujet.fermer');
+Route::put('sujet/{id}/ouvrir', 'SujetController@ouvrir')->name('sujet.ouvrir');
+Route::resource('poste', 'PosteController');
 Route::get('profil/{id}','UserController@profilFront')->name('user.profilFront');
  Route::resource('message', 'MessageController');
  Route::get('message/create/destinataire/{id}','MessageController@createFront')->name('message.createFront');

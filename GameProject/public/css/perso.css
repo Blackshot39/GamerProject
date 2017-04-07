@@ -23,8 +23,10 @@
     margin-top: 10px;
     width: 15%;
     padding-bottom: 10px;
-    border-right:1px dotted black;
-    border-bottom:1px dotted black;
+/*    border-right:1px dotted black;
+    border-bottom:1px dotted black;*/
+background-color: red;
+min-height: 190px;
 }
 .haut-gauche
 {
@@ -46,7 +48,16 @@
 .droiteHautPost
 {
   margin-left: 30px;
+  color: #999;
+  /*font-style: italic;*/
+  display:inline-block;
 }
+
+.droiteHautPost p p{
+   
+    
+}
+
 .droiteMilieuPost
 {
     font-family: arial;
@@ -56,4 +67,49 @@
 {
     width: 100px;
     height: 50px;
+}
+
+
+.bloc-poste{
+     background-color:#EEECE7;
+     display:block;
+    margin-bottom: 20px;
+}
+
+.bloc-message{
+     background-color:#EEECE7;
+     display:inline-block;
+     text-align: justify !important;
+}
+
+.user{
+    background-color:#EEECE7;
+    display:inline-block;
+}
+
+#date-poste{
+    display:inline-block;
+    color:#999;
+}
+
+#signaler-poste{
+     display:inline-block;
+     
+     
+}
+
+.coupe-block{
+    display: block;
+}
+
+.barre-haut-poste{
+    text-align: right;
+}
+
+.user-name{
+    
+}
+
+.btn-statut-sujet{
+    margin-bottom: 10px;
 }

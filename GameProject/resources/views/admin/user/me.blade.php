@@ -35,7 +35,7 @@
                         
                         <div class="form-group">
                         {!! Form::label('ville', 'Ville') !!}
-                        {!! Form::text('ville', $user->ville, ['class'=>'form-control', 'required' => 'required']) !!}
+                        {!! Form::text('ville', $user->ville, ['class'=>'form-control']) !!}
                          </div>
                           @if ($errors->has('ville'))
                         <div class="alert alert-danger" role="alert">
