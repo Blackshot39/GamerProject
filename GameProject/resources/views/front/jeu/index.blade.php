@@ -16,21 +16,22 @@
                                 <table id="example" class="table table-striped table-bordered table-hover">
                                     <thead>
                                         <tr>
+                                            <th></th>
                                             <th>Nom</th>
                                             <th>Description</th>
                                             <th>Date de sortie</th>
-                                            <th>Photo</th>
+                                            
                                             <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                          @foreach ($lesJeux as $jeu)
                                          <tr> 
-                                             
+                                             <td><img src="{{url('/').'/images/jeu/mini/'.$jeu->photo}}"> </td>
                                              <td>{{$jeu["nom"]}}</td>                                                 
                                              <td>{{$jeu["description"]}}</td>
                                              <td>{{$jeu["dateSortie"]}}</td>
-                                             <td><img src="{{url('/').'/images/jeu/mini/'.$jeu->photo}}"> </td>
+                                            
                                              <td> 
                                                  <!--If pour si l'attach existe-->
                                              
@@ -39,13 +40,13 @@
                                                {!! Form::open(['route' => ['jeu.retirer', $jeu->id], 'method' => 'put']) !!}
                                                {!! Form::submit('retirer',['class'=>'btn btn-warning']) !!} 
                                                {!! Form::close() !!}
-                                        
+                                              
                                                {!! Form::open(['route' => ['jeu.ajouter', $jeu->id], 'method' => 'put']) !!}
                                                {!! Form::submit('ajouter',['class'=>'btn btn-warning']) !!}
                                                {!! Form::close() !!}
-                                             
+                                              
                                                <a href="{{route('jeu.showUser',$jeu->id)}}"><button type="button" class="btn btn-success">Voir joueur</button></a>
-                                               
+                                               <a href="{{route('jeu.showJeu',$jeu->id)}}"><button type="button" class="btn btn-primary">Voir plus</button></a>
                                              
                                              </td>
                                          </tr>

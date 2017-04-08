@@ -21,15 +21,15 @@
                                 <div class="col-lg-12">
                                     
 
-                        {!! Form::open(array('route' => ['user.store'])) !!}
+                        {!! Form::open(array('route' => ['message.storeFront', $destinataire->id])) !!}
                          <div class="form-group">
-                        {!! Form::label('objet', 'Objet') !!}
-                        {!! Form::text('objet', null,['class'=>'form-control', 'required' => 'required']) !!}
+                        {!! Form::label('titre', 'Titre') !!}
+                        {!! Form::text('titre', null,['class'=>'form-control', 'required' => 'required']) !!}
                         </div>                        
-                        @if ($errors->has('objet'))
+                        @if ($errors->has('titre'))
                         <div class="alert alert-danger" role="alert">
                             <ul>
-                        @foreach ($errors->get('objet') as $message) 
+                        @foreach ($errors->get('titre') as $message) 
                             <li>{{$message}}</li>
                         @endforeach
                         </ul>
@@ -37,13 +37,13 @@
                         @endif
 
                          <div class="form-group">
-                        {!! Form::label('message', 'Message') !!}
-                        {!! Form::textarea('message', null, ['class'=>'form-control', 'required' => 'required']) !!}
+                        {!! Form::label('description', 'Message') !!}
+                        {!! Form::textarea('description', null, ['class'=>'form-control', 'required' => 'required']) !!}
                          </div>
-                         @if ($errors->has('message'))
+                         @if ($errors->has('description'))
                         <div class="alert alert-danger" role="alert">
                             <ul>
-                        @foreach ($errors->get('message') as $message) 
+                        @foreach ($errors->get('description') as $message) 
                             <li>{{$message}}</li>
                         @endforeach
                         </ul>
