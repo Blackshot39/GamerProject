@@ -24,7 +24,7 @@
                                         <div class="row">
 
                                             
-                                            <a href="{{route('sujet.create')}}">Creer</a>
+                                            <a href="{{route('sujet.create')}}"><button type="button" class=" btn btn-primary btn-statut-sujet">Créer un sujet</button></a>
                                             
                                             
                                             <div class="table-responsive">
@@ -32,26 +32,20 @@
                                     <thead>
                                         <tr>                                           
                                             <th>Jeu</th>
-                                            <th>Par</th>
-                                            <th>Ajoutée le</th>
+                                            
+                                            
                                             <th>Dernière réponse</th> <!-- date + user -->
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($lesSujets as $sujet)
                                         <tr>
-                                            <td>{{$sujet->titre}}</td>
-                                            <td>{{$sujet->postes->users->first()}}</td>
-                                            <td>{{Carbon\Carbon::parse($sujet->created_at)->format('d-m-Y h:i:s')}}</td>                                            
+                                            <td><a href="{{route('sujet.sujetsUnJeu', $sujet->jeu->id)}}">{{$sujet->jeu->nom}}</a></td>
                                             
-                                            <td>Par </td>
+                                            <td>{{Carbon\Carbon::parse($sujet->jeu->sujets->last()->postes->last()->created_at)->format('d-m-Y h:i:s')}} par {{$sujet->jeu->sujets->last()->postes->last()->user->name}}</td>                                            
+                                           
                                             
-                                            <td></td>
                                             
-                                            <td>
-                                               <a href="#"><button type="button" class="btn btn-primary">Fermer</button></a>
-                                                 
-                                            </td>
                                         </tr>
                                         @endforeach
                                     </tbody>

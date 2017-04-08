@@ -52,4 +52,7 @@ Route::resource('poste', 'PosteController');
 Route::get('profil/{id}','UserController@profilFront')->name('user.profilFront');
  Route::resource('message', 'MessageController');
  Route::get('message/create/destinataire/{id}','MessageController@createFront')->name('message.createFront');
+Route::get('sujet/jeu/{idJeu}', 'SujetController@sujetsUnJeu')->name('sujet.sujetsUnJeu');
+
+Route::get('/actualite','ActualiteController@indexFront')->name('actualite.indexFront');
 Route::post('message/store/{id}','MessageController@storeFront')->name('message.storeFront');

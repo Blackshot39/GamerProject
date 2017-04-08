@@ -29,7 +29,7 @@ class ActualiteController extends Controller
      */
     public function create()
     {
-        $lesCategories = Categorie::pluck('nom, id');
+        $lesCategories = Categorie::pluck('libelle', 'id');
        return view('admin/actualite/create', compact('lesCategories'));
     }
 
@@ -134,5 +134,10 @@ class ActualiteController extends Controller
         Actualite::destroy($id);
         $request->session()->flash('success', "L'actualité a été supprimée.");
         return redirect (route('actualite.index'));
+    }
+        public function indexFront()
+    {
+        $lesActualites=Actualite::paginate(20);     
+        return view('front/actualite/home')->with('lesActualites',$lesActualites);
     }
 }

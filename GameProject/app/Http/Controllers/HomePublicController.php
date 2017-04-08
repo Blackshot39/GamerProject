@@ -35,6 +35,8 @@ class HomePublicController extends Controller
 //                                        ->orderBy('dateFin', 'asc')
 //                                        ->paginate(3);
         
-        return view('front/home'/*, compact('presentation', 'lesActus', 'lesPromos', 'lesPeriodes')*/);
+        $lesActualites=Actualite::paginate(20);     
+        
+        return view('front/home',compact('lesActualites'));
     }
 }
