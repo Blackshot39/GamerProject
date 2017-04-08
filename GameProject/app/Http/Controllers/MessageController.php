@@ -38,12 +38,7 @@ class MessageController extends Controller
      */
     public function store(Request $request)
     {
-         $unMessage= new Message();
-         $unMessage->titre=$request->get('titre');
-         $unMessage->description=$request->get('description');
-         $unMessage->save();
-         $request->session()->flash('success', 'Le Message a été crée !');
-        return redirect(route('message.index'));
+         
     }
 
     /**
@@ -105,6 +100,20 @@ class MessageController extends Controller
     {
         $destinataire = User::find($id);
         return view('front/message/create',compact('destinataire'));
+    }
+    
+    public function storeFront($idDest, Request $request)
+    {
+         $userEnv = User::find(Auth::user()->id);
+         $unMessage= new Message();
+         $unMessage->titre=$request->get('titre');
+         $unMessage->description=$request->get('description');
+         
+         
+         $unMessage->users()->attach($userEnv);
+         $unMessage->save();
+         $request->session()->flash('success', 'Le Message a été crée !');
+        return redirect(route('message.index'));
     }
     
 }

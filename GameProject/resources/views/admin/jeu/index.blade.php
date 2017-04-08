@@ -6,10 +6,11 @@
                                 <table id="example" class="table table-striped table-bordered table-hover">
                                     <thead>
                                         <tr>
+                                            <th>Photo</th>
                                             <th>Nom</th>
                                             <th>Description</th>
                                             <th>Date de sortie</th>
-                                            <th>Photo</th>
+                                            
                                             <th>Action</th>
                                             
                                         </tr>
@@ -17,11 +18,11 @@
                                     <tbody>
                                          @foreach ($lesJeux as $jeu)
                                          <tr> 
-                                             
+                                             <td><img src="{{url('/').'/images/jeu/mini/'.$jeu->photo}}"> </td>
                                              <td>{{$jeu["nom"]}}</td>                                                 
                                              <td>{{$jeu["description"]}}</td>
                                              <td>{{$jeu["dateSortie"]}}</td>
-                                             <td><img src="{{url('/').'/images/jeu/mini/'.$jeu->photo}}"> </td>
+                                             
                                              <td> 
                                                  <a data-toggle="modal" data-target="#myModal{{$jeu->id}}"><button type="button" class="btn btn-danger"><i class="fa fa-lg fa-trash"></i></button></a>
                                                  <!-- Modal supprimer -->

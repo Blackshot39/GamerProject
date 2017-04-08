@@ -234,8 +234,9 @@ class JeuController extends Controller
     
     public function retirer($id)
     {
+        $user = user::find(Auth::user()->id);
         $unJeu = Jeu::find($id);
-        $unJeu->users()->detach();
+        $unJeu->users()->detach($user);
         $unJeu->update();
         return redirect(route('jeu.indexFront'));
     }   
@@ -244,5 +245,11 @@ class JeuController extends Controller
     {
          $unJeu=  Jeu::find($id);
         return view ('front/jeu/showUser ', compact('unJeu'));
+    }
+    
+    public function showJeu($id)
+    {
+         $unJeu=Jeu::find($id);
+        return view ('front/jeu/showJeu')->with('unJeu',$unJeu);
     }
 }

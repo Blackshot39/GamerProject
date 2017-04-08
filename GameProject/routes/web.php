@@ -38,6 +38,7 @@ Route::resource('sujet', 'SujetController');
 
 Route::get('/jeu','JeuController@indexFront')->name('jeu.indexFront');
 Route::get('/jeu/{id}','JeuController@showUser')->name('jeu.showUser');
+Route::get('/jeu/info/{id}','JeuController@showJeu')->name('jeu.showJeu');
 Route::put('jeu/{id}/ajouter', 'JeuController@ajouter')->name('jeu.ajouter');
 Route::put('user/{id}/retirer', 'JeuController@retirer')->name('jeu.retirer');
 
@@ -53,5 +54,8 @@ Route::get('profil/{id}','UserController@profilFront')->name('user.profilFront')
  Route::resource('message', 'MessageController');
  Route::get('message/create/destinataire/{id}','MessageController@createFront')->name('message.createFront');
 Route::get('sujet/jeu/{idJeu}', 'SujetController@sujetsUnJeu')->name('sujet.sujetsUnJeu');
+
+Route::get('/actualite','ActualiteController@indexFront')->name('actualite.indexFront');
+Route::post('message/store/{id}','MessageController@storeFront')->name('message.storeFront');
 Route::get('mon-profil','UserController@meFront')->name('user.meFront');
 Route::put('mon-profil/{id}', 'UserController@meFrontPut')->name('user.meFrontPut');
