@@ -19,7 +19,9 @@ class SujetController extends Controller
      */
     public function index()
     {
-        $lesSujets=Sujet::paginate(20);
+        $lesSujets = Jeu::paginate(20); //faire foreach sur les jeux aulieu des sujet, et faire dans le code que si le jeu a un sujet alors afficher le jeu.
+        
+        //$lesSujets=Sujet::paginate(20);
         return view('front/sujet/index', compact('lesSujets'));
     }
 
@@ -147,8 +149,12 @@ class SujetController extends Controller
     
     public function sujetsUnJeu($idJeu)
     {
-        $lesSujets = Sujet::where('jeu_id', $idJeu)->paginate(20);
-          //dd($lesSujets);   
+        $lesSujets = Sujet::where('jeu_id', $idJeu)->paginate(20); 
+//        $lesSujets = Sujet::where('jeu_id', $idJeu)->with(['poste' => function ($query) {
+//    $query->orderBy('id', 'desc');
+//}])->paginate(20);
+         // dd($lesSujets);   
+        
         return view('front/sujet/sujetparjeu', compact('lesSujets'));
                 
     }

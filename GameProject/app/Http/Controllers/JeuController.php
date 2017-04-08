@@ -219,7 +219,7 @@ class JeuController extends Controller
     
     public function indexFront()
     {
-        $lesJeux = Jeu::paginate(20);
+        $lesJeux = Jeu::All();
         return view('front/jeu/index')->with('lesJeux',$lesJeux);
     }
     

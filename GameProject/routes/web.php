@@ -11,7 +11,7 @@
 |
 */
 
-Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'Statut']], function () {
     
     Route::resource('actualite', 'ActualiteController');    
     Route::resource('user', 'UserController');
@@ -25,6 +25,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::put('user/{id}/deban', 'UserController@deban')->name('user.deban');
     Route::get('/jeu/addtype/{id}','JeuController@addTypeJeu')->name('jeu.addTypeJeu');
     Route::put('/jeu/store/{id}','JeuController@storeTypeJeu')->name('jeu.storeTypeJeu');
+    Route::get('/','HomeController@admin')->name('admin.home');
 });
 
 
@@ -52,3 +53,5 @@ Route::get('profil/{id}','UserController@profilFront')->name('user.profilFront')
  Route::resource('message', 'MessageController');
  Route::get('message/create/destinataire/{id}','MessageController@createFront')->name('message.createFront');
 Route::get('sujet/jeu/{idJeu}', 'SujetController@sujetsUnJeu')->name('sujet.sujetsUnJeu');
+Route::get('mon-profil','UserController@meFront')->name('user.meFront');
+Route::put('mon-profil/{id}', 'UserController@meFrontPut')->name('user.meFrontPut');

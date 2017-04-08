@@ -58,7 +58,7 @@
 						</li>
 						
 						<li>
-							<a href="#section-features">Forum</a>
+							<a href="{{route('sujet.index')}}">Forum</a>
 						</li>
 						
 						<li>
@@ -90,8 +90,16 @@
                         </li>
                         @endif
                         @if (Auth::check())
-                        <li><a href="{{route('user.myAccount')}}"><i class="fa fa-gear fa-fw"></i> Mon compte</a>
-                        </li>                       
+                        <li><a href="{{route('user.meFront')}}"><i class="fa fa-gear fa-fw"></i> Mon compte</a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Mes messages</a>
+                        </li> 
+                        
+                            @if (Auth::user()->statut == "Admin" || Auth::user()->statut == "Moderateur")
+                                <li><a href="{{route('admin.home')}}" target="_blank"><i class="fa fa-gear fa-fw"></i> Administration</a>
+                                </li> 
+                            @endif
+                        
                         <li class="divider"></li>
                         <li>
                             
@@ -108,18 +116,21 @@
 		</nav><!-- /.navbar navbar-default -->
 
 		@if (Session::has('error'))
+                
                 <div class="alert alert-danger">
                     {{Session::get('error') }}
                 </div>
                 @endif
                 
                 @if (Session::has('success'))
+               
                 <div class="alert alert-success">
                     {{Session::get('success') }}
                 </div>
                 @endif
 
                  @if (Session::has('warning'))
+                 
                 <div class="alert alert-warning">
                     {{Session::get('warning') }}
                 </div>

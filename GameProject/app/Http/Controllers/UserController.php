@@ -25,21 +25,24 @@ class UserController extends Controller
     {
        //$this->middleware('SuperAdmin', ['only' => ['edit', 'create', 'update', 'store', 'destroy']]);
          //$this->middleware('admin', ['except' => ['index']]);
+      $this->middleware('Admin', ['only' => ['edit', 'update', 'create', 'store', 'destroy']]);
     }
     
-    public function ban($id)
+    public function ban($id, Request $request)
     {
         $unUser = User::find($id);
         $unUser->ban = true;
         $unUser->update();
+        $request->session()->flash("success", $unUser->name." a été banni.");
         return redirect(route('user.index'));
     }
     
-    public function deban($id)
+    public function deban($id, Request $request)
     {
         $unUser = User::find($id);
         $unUser->ban = false;
         $unUser->update();
+        $request->session()->flash("success", $unUser->name." a été débanni.");
         return redirect(route('user.index'));
     }   
   
@@ -225,6 +228,8 @@ class UserController extends Controller
             'email' => 'required|email|max:255',              
             'new-mdp' => 'min:6|max:255', //verif si bon mdp taper 2x  |confirmed
             'now-mdp' => 'max:255|required',
+            'avatar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'ville' => 'max:255',
             
         ]);
 
@@ -294,5 +299,76 @@ class UserController extends Controller
         return view('front/user/profil', compact('unUser'));
     }
 
+    public function meFront()
+    {
+        $user = Auth::user();        
+        return view('front/user/me')->with('user', $user);
+    }
+    
+    public function meFrontPut($id, Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email|max:255',              
+            'new-mdp' => 'min:6|max:255', 
+            'now-mdp' => 'max:255|required',
+            'avatar' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'ville' => 'max:255',
+            
+        ]);
+
+        if ($validator->fails()) {
+             return redirect(route('user.meFront'))
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+        else
+        {             
+            $unUser = User::Find($id);     
+            $exAvatar = $unUser->avatar;
+            $unUser->email=$request->get('email');
+            $unUser->ville=$request->get('ville');
+            //avatar
+            if($request->file('avatar') != null)
+            {
+                ini_set('memory_limit','256M');
+                $image = $request->file('avatar');
+                $input['imagename'] = time().'.'.$image->getClientOriginalExtension();   
+                $destinationPath = public_path('/images/user/avatar');
+                $img = Image::make($image->getRealPath());
+                $img->resize(150, 150, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save($destinationPath.'/'.$input['imagename']);
+
+                $unUser->avatar=$input['imagename'];
+                //delete ex avatar
+                if($exAvatar != null)
+                {
+                    $avat = public_path('images/user/avatar/'.$exAvatar);
+                    if(File::exists($avat)){
+                    File::delete($avat);
+                    }
+                     
+                }
+            }
+            
+            if (Hash::check($request->get('now-mdp'), $unUser->password))
+            {
+                    //return ('bon mdp');
+                        if($request->get('new-mdp') != null)
+                        {  
+                            $unUser->password=(bcrypt($request->get('new-mdp')));                    
+                        }        
+                        $unUser->update();
+                        $request->session()->flash("success","Votre compte a été modifié.");
+                        return redirect(route('user.meFront'));
+            }
+            else
+            {
+                //return ('movai mdp');
+                  $request->session()->flash("error","Le mot de passe est incorrect.");
+                  return redirect(route('user.meFront'));
+            }
+        }
+    }
      
 }

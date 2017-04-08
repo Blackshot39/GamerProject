@@ -15,8 +15,11 @@
 		<div class="container">
 			<header class="section-head">
 				
-			
+                                @if($unSujet->ferme == false)
 				<h2 class="section-title">{{$unSujet->titre}}</h2><!-- /.section-title -->
+                                @else
+                                <h2 class="section-title">[FERME] {{$unSujet->titre}}</h2><!-- /.section-title -->
+                                @endif
 			</header><!-- /.section-head -->
 			
                         <div class="section-body">
@@ -24,13 +27,17 @@
                                         <div class="row">
                                             
                                             @if(Auth::user()->statut == "Admin" || Auth::user()->statut == "Moderateur")
-                                                {{ Form::open(['methode' => 'PUT', 'route' => ['sujet.fermer', $unSujet->id]]) }}
-                                                    <button type="submit" class=" btn btn-primary btn-statut-sujet">Fermer le sujet</button>
-                                                {{ Form::close() }}   
-                                            @else
-                                                {{ Form::open(['methode' => 'PUT', 'route' => ['sujet.ouvrir', $unSujet->id]]) }}
-                                                    <button type="submit" class=" btn btn-primary btn-statut-sujet">Ouvrir le sujet</button>
-                                                {{ Form::close() }}   
+                                                    @if($unSujet->ferme == false)
+                                                
+                                                        {!! Form::open(['route' => ['sujet.fermer', $unSujet->id], 'method' => 'put']) !!}
+                                                           <button type="submit" class=" btn btn-primary btn-statut-sujet">Fermer le sujet</button>
+                                                       {!! Form::close() !!}   
+                                                    @else
+                                                    
+                                                        {!! Form::open(['route' => ['sujet.ouvrir', $unSujet->id], 'method' => 'put']) !!}
+                                                            <button type="submit" class=" btn btn-primary btn-statut-sujet">Ouvrir le sujet</button>
+                                                        {!! Form::close() !!} 
+                                                    @endif
                                             @endif
                                             
                                             

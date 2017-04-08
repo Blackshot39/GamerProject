@@ -31,18 +31,21 @@
                                 <table class="table table-striped table-bordered table-hover">
                                     <thead>
                                         <tr>                                           
-                                            <th>Titre</th>
+                                           
                                             
-                                            <th>Ajoutée le</th>
-                                            <th>Dernière réponse</th> <!-- date + user -->
+                                            
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($lesSujets as $sujet)
                                         <tr>
+                                             @if($sujet->ferme == false)
                                             <td><a href="{{route('sujet.show', $sujet->id)}}">{{$sujet->titre}}</a></td>
-                                            <td>{{Carbon\Carbon::parse($sujet->created_at)->format('d-m-Y h:i:s')}} par {{$sujet->postes->first()->user->name}}</td>
-                                            <td>{{Carbon\Carbon::parse($sujet->postes->last()->created_at)->format('d-m-Y h:i:s')}} par {{$sujet->postes->last()->user->name}}</td>                                            
+                                            @else
+                                             <td><a href="{{route('sujet.show', $sujet->id)}}">[FERME] {{$sujet->titre}}</a></td>
+                                            @endif
+                                            <td>Ajoutée le {{Carbon\Carbon::parse($sujet->created_at)->format('d-m-Y h:i:s')}} par {{$sujet->postes->first()->user->name}}</td>
+                                            <td>Dernière réponse le {{Carbon\Carbon::parse($sujet->postes->last()->created_at)->format('d-m-Y h:i:s')}} par {{$sujet->postes->last()->user->name}}</td>                                            
                                             
                                                                                         
                                             <td>

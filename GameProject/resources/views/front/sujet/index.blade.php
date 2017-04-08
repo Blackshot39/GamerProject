@@ -31,26 +31,35 @@
                                 <table class="table table-striped table-bordered table-hover">
                                     <thead>
                                         <tr>                                           
-                                            <th>Jeu</th>
+                                            <th>Jeux</th>
                                             
                                             
-                                            <th>Dernière réponse</th> <!-- date + user -->
+                                            
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($lesSujets as $sujet)
+                                       
+
+                                        @foreach ($lesSujets as $jeu)
+                                        
+                                        @if($jeu->sujets->count() > 0)
                                         <tr>
-                                            <td><a href="{{route('sujet.sujetsUnJeu', $sujet->jeu->id)}}">{{$sujet->jeu->nom}}</a></td>
-                                            
-                                            <td>{{Carbon\Carbon::parse($sujet->jeu->sujets->last()->postes->last()->created_at)->format('d-m-Y h:i:s')}} par {{$sujet->jeu->sujets->last()->postes->last()->user->name}}</td>                                            
+                                            <td><a href="{{route('sujet.sujetsUnJeu', $jeu->id)}}">{{$jeu->nom}}</a></td>
+                                            <td>Dernière réponse le {{Carbon\Carbon::parse($jeu->sujets->last()->postes->last()->created_at)->format('d-m-Y h:i:s')}} par {{$jeu->sujets->last()->postes->last()->user->name}}</td>                                            
                                            
-                                            
-                                            
                                         </tr>
+                                        @endif
                                         @endforeach
+
+
+
                                     </tbody>
                                 </table>
-    </div>
+    </div>   
+                                            
+                                          
+                                     
+            
     {{ $lesSujets->links() }}
                                                           
                                             
