@@ -2,7 +2,7 @@
 @section('content')
 
 
-<h2> Modifier un produit : {{$unJeu->nom}} </h2>
+<h2> Modification du jeu : {{$unJeu->nom}} </h2>
 
     {!! Form::open(['method'=>'put', 'route' => ['jeu.update', $unJeu->id],'class' => 'form-horizontal','enctype' => 'multipart/form-data']) !!}
 <div class="well">
@@ -75,8 +75,38 @@
             {!! Form::file('image', array('class' => 'form-control')) !!}
             </div>
 </div>
+    
+    
 
-<button type="submit" class=" btn btn-primary center-block">Créer</button>
+<button type="submit" class=" btn btn-primary center-block">Modifier</button>
 </div>
 {!! Form::close() !!}
+
+<div class="table-responsive col-lg-6">
+                                <table id="example" class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Type</th>
+                                            <th></th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                         @foreach ($unJeu->typeJeus as $type)
+                                         <tr> 
+                                             
+                                            
+                                             <td>{{$type->titre}}</td>
+                                             <td>
+                                                            {!! Form::open(['route' => ['typejeu.retirer', $type->id, $unJeu->id], 'method' => 'delete']) !!}
+                                                             {!! Form::submit('Retirer',['class'=>'btn btn-danger']) !!}
+                                                             {!! Form::close() !!}
+                                             </td>
+                                             
+                                         </tr>
+                                            @endforeach   
+                                    
+                                    </tbody>
+                                </table>
+</div>
 @stop

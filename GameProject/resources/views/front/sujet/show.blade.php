@@ -14,7 +14,7 @@
 	<section class="section section-features" id="section-features">
 		<div class="container">
 			<header class="section-head">
-				
+                            <h1>{{$unSujet->jeu->nom}}</h1>
                                 @if($unSujet->ferme == false)
 				<h2 class="section-title">{{$unSujet->titre}}</h2><!-- /.section-title -->
                                 @else
@@ -25,7 +25,7 @@
                         <div class="section-body">
                                 <div class="features">
                                         <div class="row">
-                                            
+                                            @if(Auth::check())
                                             @if(Auth::user()->statut == "Admin" || Auth::user()->statut == "Moderateur")
                                                     @if($unSujet->ferme == false)
                                                 
@@ -39,17 +39,20 @@
                                                         {!! Form::close() !!} 
                                                     @endif
                                             @endif
-                                            
+                                            @endif
                                             
                                             @foreach ($lesPostes as $poste)
                                             
                                             
                                             <div class="bloc-poste col-xs-12 col-md-12 col-lg-12">
                                                 <div class="barre-haut-poste">
-                                                    <div id="date-poste">{{$poste->created_at}} -</div>
-                                                    <div id="signaler-poste"><a href="#"> Signaler</a></div>
+                                                    <div id="date-poste">{{$poste->created_at}}</div>
+                                                    @if(Auth::check())
+                                                    <div id="signaler-poste"> <a href="#"> Signaler</a></div>
+                                                    
                                                     @if(Auth::user()->id == $poste->user->id || Auth::user()->statut == "Admin" || Auth::user()->statut == "Moderateur")
                                                     <div id="signaler-poste"> - <a href="{{route('poste.edit', $poste->id)}}"> Editer</a></div>
+                                                    @endif
                                                     @endif
                                                 </div>
                                                 <div class="coupe-block"></div>

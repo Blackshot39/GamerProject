@@ -14,10 +14,9 @@ class AddInfoJeu extends Migration
     public function up()
     {
          Schema::table('jeus', function (Blueprint $table) {
-             $table->string('editeur');
-             $table->string('genre');
-             $table->string('thème');
-             $table->string('age');
+                     
+             
+             $table->string('pegi')->nullable();
          });
     }
 

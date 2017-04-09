@@ -113,3 +113,68 @@ min-height: 190px;
 .btn-statut-sujet{
     margin-bottom: 10px;
 }
+
+.titre-actu{
+    text-align : left;
+}
+
+.date-actu{
+  
+    text-align : left;
+    
+}
+
+.categorie-actu{
+    text-align: right;
+    
+}
+
+.nb-commentaire-actu{
+    text-align: right;
+}
+
+.bloc-actu{
+     background-color:#EEECE7;
+     display:block;
+    margin-bottom: 20px;
+    margin-right:20px;
+}
+
+.message-actu{
+    background-color:#EEECE7;
+     margin-top: 30px;
+     text-align: justify !important;
+}
+
+.btn-bottom{
+    margin-bottom: 10px;
+}
+
+
+.gallery a {
+    /*width: 240px !important;
+    height: 180px;*/
+    width:170px;
+    display: inline-block;
+    overflow: hidden;
+    margin: 4px 6px;
+    box-shadow: 0 0 4px -1px #000;
+}
+
+
+            .gallery > a > img {
+              -webkit-transition: -webkit-transform 0.15s ease 0s;
+              -moz-transition: -moz-transform 0.15s ease 0s;
+              -o-transition: -o-transform 0.15s ease 0s;
+              transition: transform 0.15s ease 0s;
+              -webkit-transform: scale3d(1, 1, 1);
+              transform: scale3d(1, 1, 1);
+              height: 100%;
+              width: 100%;
+            }
+            .gallery > a:hover > img {
+              -webkit-transform: scale3d(1.1, 1.1, 1.1);
+              transform: scale3d(1.1, 1.1, 1.1);
+            }
+            
+            

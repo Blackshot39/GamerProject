@@ -4,9 +4,7 @@
 
 <h1 class="page-header">Les Actualites</h1>
 <div class="row show-grid" style='text-align: center'>
-    {{ Form::open(['route' => 'actualite.create', 'method' => 'get'])}}
-        {{ Form::submit('Laisser une actualiter',['class'=>'btn btn-primary']) }}
-    {{ Form::close() }}              
+               
 </div>
     <div class="table-responsive">
                                 <table id="example" class="table table-striped table-bordered table-hover">
@@ -25,15 +23,15 @@
                                              
                                              <td>{{$actualite["titre"]}}</td>
                                              <td>{{$actualite["description"]}}</td>
-                                             <td>{{$actualite["date"]}}</td>
-                                             <td>{{$actualite["categorie"]}}</td>
+                                             <td>{{$actualite->created_at}}</td>
+                                             <td>{{$actualite->categorie->libelle}}</td>
                                              
                                              
                                              <td> 
-                                                 {{ Form::open(['route'=> ['$actualite.destroy',$actualite["id"]], 'method' => 'delete']) }}
+                                                 {{ Form::open(['route'=> ['actualite.destroy',$actualite["id"]], 'method' => 'delete']) }}
                                                     {{ Form::submit('Supprimer',['class'=>'btn btn-danger up']) }}
                                                   {{ Form::close() }}
-                                                  <a href="{{route('typejeu.edit', $typejeu->id)}}"><button type="button" class="btn btn-success"><i class="fa fa-lg fa-pencil"></i></button></a>
+                                                  <a href="{{route('actualite.edit', $actualite->id)}}"><button type="button" class="btn btn-success"><i class="fa fa-lg fa-pencil"></i></button></a>
                                              
                                              </td>
                                          </tr>

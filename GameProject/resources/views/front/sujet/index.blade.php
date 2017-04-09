@@ -23,16 +23,16 @@
                                 <div class="features">
                                         <div class="row">
 
-                                            
+                                            @if(Auth::check())
                                             <a href="{{route('sujet.create')}}"><button type="button" class=" btn btn-primary btn-statut-sujet">Créer un sujet</button></a>
-                                            
+                                            @endif
                                             
                                             <div class="table-responsive">
-                                <table class="table table-striped table-bordered table-hover">
+                                <table id="example" class="table table-striped table-bordered table-hover">
                                     <thead>
                                         <tr>                                           
                                             <th>Jeux</th>
-                                            
+                                            <th></th>
                                             
                                             
                                         </tr>
@@ -60,7 +60,7 @@
                                           
                                      
             
-    {{ $lesSujets->links() }}
+    
                                                           
                                             
 					</div><!-- /.row -->

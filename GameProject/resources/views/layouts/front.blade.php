@@ -13,6 +13,7 @@
 	<link rel="stylesheet" href="{{url('css/bootstrap.min.css')}}" />
 	<link rel="stylesheet" href="{{url('css/front.css')}}" />
         <link rel="stylesheet" href="{{url('css/perso.css')}}" />
+        <link href="{{url('css/baguetteBox.min.css')}}" rel="stylesheet">
          <!-- Custom Fonts -->
     <link href="{{url('css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
 	<!-- DataTable (filtertable)-->
@@ -20,15 +21,7 @@
 
     
     
-	<script src="{{url('js/jquery.min.js')}}"></script>
-	<script src="{{url('js/bootstrap.min.js')}}"></script>
-	<script src="{{url('js/jquery.dataTables.min.js')}}"></script>
-    <script src="{{url('js/dataTables.bootstrap.min.js')}}"></script>
-	<script> //script pour les DataTables (tableau dynamique)
-            $(document).ready(function() {
-    $('#example').DataTable();
-} );
-</script>
+	
 	
 </head>
 <body>
@@ -54,7 +47,7 @@
 				<div class="collapse navbar-collapse" id="nav">
 					<ul class="nav navbar-nav navbar-right">
 						<li class="active">
-							<a href="{{route('homePublic.index')}}">Home</a>
+							<a href="{{route('homePublic.index')}}">Accueil</a>
 						</li>
 						
 						<li>
@@ -69,13 +62,7 @@
 							<a href="{{route('actualite.indexFront')}}">Actualité</a>
 						</li>
 						
-						<li>
-							<a href="#section-pricing">Pricing</a>
-						</li>
 						
-						<li>
-							<a href="#section-contacts">Contact</a>
-						</li>
                                                     <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         @if (Auth::check())
@@ -91,6 +78,8 @@
                         @endif
                         @if (Auth::check())
                         <li><a href="{{route('user.meFront')}}"><i class="fa fa-gear fa-fw"></i> Mon compte</a>
+                        </li>
+                        <li><a href="{{route('jeu.mesJeux')}}"><i class="fa fa-gear fa-fw"></i> Mes jeux</a>
                         </li>
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Mes messages</a>
                         </li> 
@@ -138,6 +127,41 @@
                 
 		 @yield('content')
 
+<script src="{{url('js/jquery.min.js')}}"></script>
+<script src="{{url('js/bootstrap.min.js')}}"></script>
+<script src="{{url('js/jquery.dataTables.min.js')}}"></script>
+<script src="{{url('js/dataTables.bootstrap.min.js')}}"></script>
+<script> //script pour les DataTables (tableau dynamique)
+            $(document).ready(function() {
+    $('#example').DataTable();
+} );
+</script>
+<script src="{{url('js/baguetteBox.min.js')}}"></script>
+<script>
+window.onload = function() {
+    //    if (typeof oldIE === 'undefined' && Object.keys) {
+//        hljs.initHighlighting();
+//    }
+if ( typeof oldIE === 'undefined' && Object.keys && typeof hljs !== 'undefined') {
+        hljs.initHighlighting();
+   }
+
+    baguetteBox.run('.baguetteBoxOne');
+    baguetteBox.run('.baguetteBoxTwo');
+    baguetteBox.run('.baguetteBoxThree', {
+        animation: 'fadeIn',
+        noScrollbars: true
+    });
+    baguetteBox.run('.baguetteBoxFour', {
+        buttons: false
+    });
+    baguetteBox.run('.baguetteBoxFive', {
+        captions: function(element) {
+            return element.getElementsByTagName('img')[0].alt;
+        }
+    });
+};
+</script>
 	
 
 	<footer class="footer">

@@ -16,16 +16,16 @@
 			<header class="section-head">
 				
 			
-				<h2 class="section-title">Forum</h2><!-- /.section-title -->
+				<h2 class="section-title">Forum {{$jeu->nom}}</h2><!-- /.section-title -->
 			</header><!-- /.section-head -->
 			
                         <div class="section-body">
                                 <div class="features">
                                         <div class="row">
 
-                                            
+                                            @if(Auth::check())
                                             <a href="{{route('sujet.create')}}"><button type="button" class=" btn btn-primary btn-statut-sujet">Créer un sujet</button></a>
-                                            
+                                            @endif
                                             
                                             <div class="table-responsive">
                                 <table class="table table-striped table-bordered table-hover">
@@ -47,8 +47,9 @@
                                             <td>Ajoutée le {{Carbon\Carbon::parse($sujet->created_at)->format('d-m-Y h:i:s')}} par {{$sujet->postes->first()->user->name}}</td>
                                             <td>Dernière réponse le {{Carbon\Carbon::parse($sujet->postes->last()->created_at)->format('d-m-Y h:i:s')}} par {{$sujet->postes->last()->user->name}}</td>                                            
                                             
-                                                                                        
+                                              @if(Auth::check())                                          
                                             <td>
+                                                
                                                 @if(Auth::user()->statut == "Admin" || Auth::user()->statut == "Moderateur")
                                                     @if($sujet->ferme == false)
                                                 
@@ -62,9 +63,10 @@
                                                         {!! Form::close() !!} 
                                                     @endif
                                             @endif
-                                               
+                                              
                                                 
                                             </td>
+                                             @endif
                                         </tr>
                                         @endforeach
                                     </tbody>

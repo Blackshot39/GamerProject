@@ -7,35 +7,35 @@
 			<header class="section-head">
 				
 			
-				<h2 class="section-title">Modification du poste #{{$poste->id}}</h2><!-- /.section-title -->
+				<h2 class="section-title">Modification du commentaire #{{$unCommentaire->id}}</h2><!-- /.section-title -->
 			</header><!-- /.section-head -->
 			
                         <div class="section-body">
                                 <div class="features">
                                         <div class="row">
                                             <div class='info-poste'>
-                                                Posté par {{$poste->user->name}}
-                                                le {{$poste->created_at}}
+                                                Posté par {{$unCommentaire->user->name}}
+                                                le {{$unCommentaire->created_at}}
                                                 <br>
-                                                Sujet: <a href="{{route('sujet.show', $poste->sujet->id)}}">{{$poste->sujet->titre}}</a>
-                                                @if($poste->updated_at != null && $poste->updated_at != $poste->created_at)
+                                                Actualité: <a href="{{route('actualite.showFront', $unCommentaire->actualite->id)}}">{{$unCommentaire->actualite->titre}}</a>
+                                                @if($unCommentaire->updated_at != null && $unCommentaire->updated_at != $unCommentaire->created_at)
                                                 <br>
                                                     Dernière modification: {{$poste->updated_at}}
                                                 @endif
                                             </div>
 
-{!! Form::open(array('method' => 'PUT', 'route' => ['poste.update', $poste->id ], 'class' => 'form-horizontal')) !!}
+{!! Form::open(array('method' => 'PUT', 'route' => ['commentaire.update', $unCommentaire->id ], 'class' => 'form-horizontal')) !!}
 
 <div class="form-group">
-      {!! Form::label('desc', 'Message :',['class' => 'col-lg-2 control-label'])!!}
-      <div class="col-lg-10">
-          {!! Form::textarea('desc',$poste->description , ['placeholder' => 'titre','class' => 'form-control'])!!}
+     
+      <div class="col-lg-12">
+          {!! Form::textarea('commentaire',$unCommentaire->description , ['placeholder' => 'titre','class' => 'form-control'])!!}
       </div>
 </div>    
-@if ($errors->has('desc'))
+@if ($errors->has('commentaire'))
                         <div class="alert alert-danger" role="alert">
                             <ul>
-                        @foreach ($errors->get('desc') as $message) 
+                        @foreach ($errors->get('commentaire') as $message) 
                             <li>{{$message}}</li>
                         @endforeach
                         </ul>

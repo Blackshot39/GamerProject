@@ -9,6 +9,13 @@ use App\Models\User;
 
 class MessageController extends Controller
 {
+    
+    public function __construct()
+    {
+       
+      //$this->middleware('auth', ['except' => ['index', 'show', 'sujetsUnJeu']]);
+    }
+    
     /**
      * Display a listing of the resource.
      *
