@@ -30,10 +30,10 @@
                                              
                                              
                                              <td> 
-                                                 {{ Form::open(['route'=> ['$actualite.destroy',$actualite["id"]], 'method' => 'delete']) }}
+                                                 {{ Form::open(['route'=> ['actualite.destroy',$actualite["id"]], 'method' => 'delete']) }}
                                                     {{ Form::submit('Supprimer',['class'=>'btn btn-danger up']) }}
                                                   {{ Form::close() }}
-                                                  <a href="{{route('typejeu.edit', $typejeu->id)}}"><button type="button" class="btn btn-success"><i class="fa fa-lg fa-pencil"></i></button></a>
+                                                  <button type="button" class="btn btn-success"><i class="fa fa-lg fa-pencil"></i></button>
                                              
                                              </td>
                                          </tr>

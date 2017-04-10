@@ -57,7 +57,9 @@ class ActualiteController extends Controller
             $uneActualite= new Actualite();
             $uneActualite->titre=$request->get('titre');
             $uneActualite->description=$request->get('description');
-            $uneActualite->categories()->associate($request->get('categorie'));
+            $uneActualite->categorie_id =$request->get('lesCategories');
+            $uneActualite->user_id= auth()->user()->id;
+            
             $uneActualite->save();
             $request->session()->flash('success', "L'actualité a été créée.");
             return redirect (route('actualite.index'));

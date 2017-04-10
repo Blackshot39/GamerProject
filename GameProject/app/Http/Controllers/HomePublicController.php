@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Presentation;
 use App\Models\Actualite;
+use App\Models\Sujet;
 use App\Models\Promotion;
 use App\Models\PeriodeSpeciale;
 use Carbon\Carbon;
@@ -35,8 +36,13 @@ class HomePublicController extends Controller
 //                                        ->orderBy('dateFin', 'asc')
 //                                        ->paginate(3);
         
-        $lesActualites=Actualite::paginate(20);     
+        $lesActualites=Actualite::orderBy('id','libelle')
+                                  ->limit(5)
+                                  ->get();     
+        $lesSujets=Sujet::orderBy('id','titre')
+                                  ->limit(5)
+                                   ->get();  
         
-        return view('front/home',compact('lesActualites'));
+        return view('front/home',compact('lesActualites','lesSujets'));
     }
 }
