@@ -12,6 +12,13 @@ use Illuminate\Support\Facades\Auth;
 
 class SujetController extends Controller
 {
+    
+    public function __construct()
+    {
+       
+      $this->middleware('auth', ['except' => ['index', 'show', 'sujetsUnJeu']]);
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -19,7 +26,9 @@ class SujetController extends Controller
      */
     public function index()
     {
-        $lesSujets=Sujet::paginate(20);
+        $lesSujets = Jeu::All(); //faire foreach sur les jeux aulieu des sujet, et faire dans le code que si le jeu a un sujet alors afficher le jeu.
+        
+        //$lesSujets=Sujet::paginate(20);
         return view('front/sujet/index', compact('lesSujets'));
     }
 
@@ -109,7 +118,7 @@ class SujetController extends Controller
                  $unSujet=Sujet::find($id);
          $unSujet->titre=$request->get('titre');
          $unSujet->save();
-         $request->session()->flash('success', 'La Copropriete a été modifiée !');
+         $request->session()->flash('success', 'Sujet modifié !');
          return redirect(route('sujet.index'));  
     }
 
@@ -123,7 +132,7 @@ class SujetController extends Controller
     {
                 $unSujet=Sujet::find($id);
         $unSujet->save();
-        $request->session()->flash('success', 'La Copropriete a été supprimée !');
+        $request->session()->flash('success', 'Sujet supprimé !');
         return redirect(route('sujet.index'));
     }
     
@@ -131,16 +140,34 @@ class SujetController extends Controller
     {
         $unSujet = Sujet::find($id);
         $unSujet->ferme = true;
+        
         $unSujet->update();
-        return redirect (route('sujet.show' ,$id));
+        return redirect (route('sujet.sujetsUnJeu', $unSujet->jeu->id));
     }
     
      public function ouvrir($id)
     {
         $unSujet = Sujet::find($id);
         $unSujet->ferme = false;
+        
         $unSujet->update();
-        return redirect (route('sujet.show' ,$id));
+        return redirect (route('sujet.sujetsUnJeu', $unSujet->jeu->id));
     }
     
+    public function sujetsUnJeu($idJeu)
+    {
+        $jeu = Jeu::find($idJeu);
+        $lesSujets = Sujet::where('jeu_id', $idJeu)->paginate(40); 
+//        $lesSujets = Sujet::where('jeu_id', $idJeu)->with(['poste' => function ($query) {
+//    $query->orderBy('id', 'desc');
+//}])->paginate(20);
+//
+//$lesSujets = Sujet::where('jeu_id', $idJeu)
+//->with(['poste'])->get()
+//->sortByDesc('poste.id');
+         // dd($lesSujets);   
+        
+        return view('front/sujet/sujetparjeu', compact('lesSujets', 'jeu'));
+                
+    }
 }

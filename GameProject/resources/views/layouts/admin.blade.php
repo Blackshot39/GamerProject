@@ -100,7 +100,7 @@
                             <!-- /input-group -->
                         </li>
                         <li>
-                            <a href="#" target="_blank"><i class="fa fa-external-link-square"></i> Site public</a>
+                            <a href="{{route('homePublic.index')}}" target="_blank"><i class="fa fa-external-link-square"></i> Site public</a>
                         </li>                        
                         <li>
                             <a href="{{route('user.index')}}"><i class="fa fa-users"></i> Utilisateurs</a>

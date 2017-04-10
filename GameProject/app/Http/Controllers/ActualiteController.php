@@ -8,6 +8,7 @@ use App\Models\Actualite;
 use App\Models\Categorie;
 use App\Models\Commentaire;
 use Validator;
+use Illuminate\Support\Facades\Auth;
 
 class ActualiteController extends Controller
 {
@@ -44,7 +45,7 @@ class ActualiteController extends Controller
         $validator = Validator::make($request->all(), [
             'titre' => 'required|max:255',
             'description' => 'required|max:65532',  
-           
+            'categorie' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -57,9 +58,9 @@ class ActualiteController extends Controller
             $uneActualite= new Actualite();
             $uneActualite->titre=$request->get('titre');
             $uneActualite->description=$request->get('description');
-            $uneActualite->categorie_id =$request->get('lesCategories');
-            $uneActualite->user_id= auth()->user()->id;
-            
+            $uneActualite->categorie()->associate($request->get('categorie'));
+            //dd($request->get('categorie'));
+            $uneActualite->user_id = (Auth::user()->id);
             $uneActualite->save();
             $request->session()->flash('success', "L'actualité a été créée.");
             return redirect (route('actualite.index'));
@@ -88,8 +89,8 @@ class ActualiteController extends Controller
     public function edit($id)
     {
        $uneActualite=Actualite::find($id);
-       $lesCategories = Categorie::pluck('nom, id');
-        return view('admin/actualite/edit', compacy('uneActualite', 'lesCategories'));
+       $lesCategories = Categorie::pluck('libelle', 'id');
+        return view('admin/actualite/edit', compact('uneActualite', 'lesCategories'));
     }
 
     /**
@@ -103,7 +104,8 @@ class ActualiteController extends Controller
     {
          $validator = Validator::make($request->all(), [
             'titre' => 'required|max:255',
-            'description' => 'required|max:65532',  
+            'description' => 'required|max:65532',
+             'categorie' => 'required',
            
         ]);
 
@@ -118,7 +120,7 @@ class ActualiteController extends Controller
             $uneActualite=Actualite::find($id);
             $uneActualite->titre=$request->get('titre');
             $uneActualite->description=$request->get('description');
-            $uneActualite->categories()->associate($request->get('categorie'));
+            $uneActualite->categorie()->associate($request->get('categorie'));
             $uneActualite->update();
             $request->session()->flash('success', "L'actualité a été modifiée.");
             return redirect (route('actualite.index'));
@@ -137,9 +139,21 @@ class ActualiteController extends Controller
         $request->session()->flash('success', "L'actualité a été supprimée.");
         return redirect (route('actualite.index'));
     }
-        public function indexFront()
+      
+    
+    public function indexFront()
     {
-        $lesActualites=Actualite::paginate(20);     
-        return view('front/actualite/home')->with('lesActualites',$lesActualites);
+        $lesActus = Actualite::orderBy('id', 'desc')->paginate(20);
+        return view ('front/actualite/index', compact('lesActus'));
+    }
+    
+    public function showFront($id)
+    {
+        
+        $uneActu = Actualite::find($id);
+        $lesCom = Commentaire::where('actualite_id', $id)->orderBy('id', 'desc')->paginate(15);
+    
+         
+        return view ('front/actualite/show', compact('uneActu', 'lesCom'));
     }
 }

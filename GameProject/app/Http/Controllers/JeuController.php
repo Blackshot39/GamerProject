@@ -12,8 +12,16 @@ use Image;
 use File;
 use Illuminate\Support\Facades\Auth;
 
+
 class JeuController extends Controller
 {
+    
+    public function __construct()
+    {
+       
+      $this->middleware('auth', ['only' => ['ajouter', 'retirer', 'activite', 'mesJeux']]);
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -219,7 +227,8 @@ class JeuController extends Controller
     
     public function indexFront()
     {
-        $lesJeux = Jeu::paginate(20);
+        $lesJeux = Jeu::All();
+        
         return view('front/jeu/index')->with('lesJeux',$lesJeux);
     }
     
@@ -234,15 +243,55 @@ class JeuController extends Controller
     
     public function retirer($id)
     {
+        $user = user::find(Auth::user()->id);
         $unJeu = Jeu::find($id);
-        $unJeu->users()->detach();
+        $unJeu->users()->detach($user);
         $unJeu->update();
         return redirect(route('jeu.indexFront'));
     }   
     
     public function showUser($id)
     {
-         $unJeu=  Jeu::find($id);
-        return view ('front/jeu/showUser ', compact('unJeu'));
+        
+        
+         $unJeu=  Jeu::find($id); 
+         $lesUsers = $unJeu->users()->get(); 
+        return view ('front/jeu/showUser ', compact('lesUsers', 'unJeu'));
+    }
+    
+    public function showJeu($id)
+    {
+         $unJeu=Jeu::find($id);
+        return view ('front/jeu/showJeu')->with('unJeu',$unJeu);
+    }
+    
+    public function mesJeux()
+    {
+         
+        $user = user::find(Auth::user()->id);
+        
+        return view ('front/user/mesJeux', compact ('user'));
+    }
+    
+    public function activite($id)
+    {
+        $user = user::find(Auth::user()->id);
+         $jeu_user = $user->jeus()->where('jeus.id',$id)->get()->first();
+         
+         if($jeu_user->pivot->actif == true)
+         {
+             
+              $jeu_user->pivot->actif = false;
+         }
+         else
+         {
+              $jeu_user->pivot->actif = true;
+         }
+        
+         
+         
+         
+         $jeu_user->pivot->update();
+         return back();
     }
 }

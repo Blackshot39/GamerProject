@@ -14,13 +14,13 @@ class JeuTypeJeu extends Migration
     public function up()
     {
         //
-         Schema::create('jeu_typejeu', function(Blueprint $table){
+         Schema::create('jeu_type_jeu', function(Blueprint $table){
             $table->increments('id');
             
             $table->integer('jeu_id')->unsigned();
             $table->foreign('jeu_id')->references('id')->on('jeus');
-            $table->integer('typejeu_id')->unsigned();
-            $table->foreign('typejeu_id')->references('id')->on('type_jeus');
+            $table->integer('type_jeu_id')->unsigned();
+            $table->foreign('type_jeu_id')->references('id')->on('type_jeus');
             $table->engine='InnoDB';
         });
     }

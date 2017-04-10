@@ -3,9 +3,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\TypeJeu;
 use Validator;
+use Illuminate\Support\Facades\DB;
 
 class TypeJeuController extends Controller
 {
+    
+    
     /**
      * Display a listing of the resource.
      *
@@ -102,7 +105,16 @@ class TypeJeuController extends Controller
     public function destroy($id, Request $request)
     {
         TypeJeu::destroy($id);
-        $request->session()->flash('success', 'le jeu est supprimée');
-        return redirect (route('typejeu.index'));
+        $request->session()->flash('success', 'Le type a été supprimé.');
+        return back();
+    }
+    
+    public function retirer($id, $idJeu, Request $request)
+    {
+        $jeu_type_jeu = DB::table('jeu_type_jeu')->where('type_jeu_id', $id)->where('jeu_id', $idJeu)->delete();
+        //dd($jeu_type_jeu);
+        
+        $request->session()->flash('success', 'Le type a été retiré.');
+        return back();
     }
 }

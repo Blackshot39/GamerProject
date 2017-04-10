@@ -14,40 +14,50 @@
 	<section class="section section-features" id="section-features">
 		<div class="container">
 			<header class="section-head">
-				
-			
+                            <h1>{{$unSujet->jeu->nom}}</h1>
+                                @if($unSujet->ferme == false)
 				<h2 class="section-title">{{$unSujet->titre}}</h2><!-- /.section-title -->
+                                @else
+                                <h2 class="section-title">[FERME] {{$unSujet->titre}}</h2><!-- /.section-title -->
+                                @endif
 			</header><!-- /.section-head -->
 			
                         <div class="section-body">
                                 <div class="features">
                                         <div class="row">
-                                            
+                                            @if(Auth::check())
                                             @if(Auth::user()->statut == "Admin" || Auth::user()->statut == "Moderateur")
-                                                {{ Form::open(['methode' => 'PUT', 'route' => ['sujet.fermer', $unSujet->id]]) }}
-                                                    <button type="submit" class=" btn btn-primary btn-statut-sujet">Fermer le sujet</button>
-                                                {{ Form::close() }}   
-                                            @else
-                                                {{ Form::open(['methode' => 'PUT', 'route' => ['sujet.ouvrir', $unSujet->id]]) }}
-                                                    <button type="submit" class=" btn btn-primary btn-statut-sujet">Ouvrir le sujet</button>
-                                                {{ Form::close() }}   
+                                                    @if($unSujet->ferme == false)
+                                                
+                                                        {!! Form::open(['route' => ['sujet.fermer', $unSujet->id], 'method' => 'put']) !!}
+                                                           <button type="submit" class=" btn btn-primary btn-statut-sujet">Fermer le sujet</button>
+                                                       {!! Form::close() !!}   
+                                                    @else
+                                                    
+                                                        {!! Form::open(['route' => ['sujet.ouvrir', $unSujet->id], 'method' => 'put']) !!}
+                                                            <button type="submit" class=" btn btn-primary btn-statut-sujet">Ouvrir le sujet</button>
+                                                        {!! Form::close() !!} 
+                                                    @endif
                                             @endif
-                                            
+                                            @endif
                                             
                                             @foreach ($lesPostes as $poste)
                                             
                                             
                                             <div class="bloc-poste col-xs-12 col-md-12 col-lg-12">
                                                 <div class="barre-haut-poste">
-                                                    <div id="date-poste">{{$poste->created_at}} -</div>
-                                                    <div id="signaler-poste"><a href="#"> Signaler</a></div>
+                                                    <div id="date-poste">{{$poste->created_at}}</div>
+                                                    @if(Auth::check())
+                                                    <div id="signaler-poste"> <a href="#"> Signaler</a></div>
+                                                    
                                                     @if(Auth::user()->id == $poste->user->id || Auth::user()->statut == "Admin" || Auth::user()->statut == "Moderateur")
                                                     <div id="signaler-poste"> - <a href="{{route('poste.edit', $poste->id)}}"> Editer</a></div>
+                                                    @endif
                                                     @endif
                                                 </div>
                                                 <div class="coupe-block"></div>
 								<div class="user col-xs-4 col-md-3 col-lg-2"> 
-                                                                    <div class="user-name"><a href="route('user.profilFront', $poste->user->id)">{{$poste->user->name}}</a></div>
+                                                                    <div class="user-name"><a href="{{route('user.profilFront', $poste->user->id)}}">{{$poste->user->name}}</a></div>
                                                                     <div>{{$poste->user->statut}}</div>
                                                                     @if($poste->user->avatar != null)
                                                                     <img src="{{url('/images/user/avatar/'.$poste->user->avatar)}}" alt="" class="img-responsive">
@@ -71,7 +81,7 @@
 
                                             {{ $lesPostes->links() }}
                                                         
-                                            @if($unSujet->ferme == false)
+                                            @if($unSujet->ferme == false && Auth::check() == true)
                                             
                                                 {!! Form::open(array('method' => 'PUT', 'route' => ['poste.repondre', $unSujet->id], 'class' => 'form-horizontal')) !!}                        
                                                  <div class="form-group">
@@ -95,7 +105,6 @@
                                             
                                             @endif
                                             
-                                            <br> +if admin/modo = btn lock sujet / edit poste
                                             
                                             
 					

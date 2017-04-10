@@ -22,4 +22,15 @@ class User extends Model
         return $this->hasMany('App\Models\Commentaire');
     }
     
+    public function jeus()
+    {
+        return $this->belongsToMany('App\Models\Jeu')->withPivot('actif');
+    }
+    
+    public function actualites()
+    {
+        return $this->hasMany('App\Models\Actualite');
+    }
+  
+    
 }

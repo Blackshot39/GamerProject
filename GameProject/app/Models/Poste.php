@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Poste extends Model
 {
     //
-     public function sujets()
+     public function sujet()
      {
      	return $this->belongsTo('App\Models\Sujet');
      }

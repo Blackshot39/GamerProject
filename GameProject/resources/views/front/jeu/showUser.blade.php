@@ -11,6 +11,7 @@
                         <div class="section-body">
 				<div class="features">
 					<div class="row">
+                                            <p>Seul les joueurs n'ayant pas désactiver ce jeu sont affiché.</p>
 						<div class="table-responsive">
                                 <table id="example" class="table table-striped table-bordered table-hover">
                                     <thead>
@@ -19,10 +20,12 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                        @foreach ($unJeu->users as $user)
+                        @foreach ($lesUsers as $user)
+                            @if($user->pivot->actif == true)
                             <tr>                           
                                 <td> <a href="{{route('user.profilFront', $user->id)}}">{{$user->name}}</a></td>                                                 
                             </tr>
+                            @endif
                             @endforeach 
                                 </tbody>
                                 </table>

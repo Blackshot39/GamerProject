@@ -2,7 +2,7 @@
 @section('content')
 
 
-<h2> Modifier un produit : {{$unTypeJeu->titre}} </h2>
+<h2> Modification du type : {{$unTypeJeu->titre}} </h2>
 
     {!! Form::open(['method'=>'put', 'route' => ['typejeu.update', $unTypeJeu->id],'class' => 'form-horizontal']) !!}
 <div class="well">

@@ -6,9 +6,17 @@ use Illuminate\Http\Request;
 use App\Models\Commentaire;
 use App\Http\Requests;
 use Validator;
+use Illuminate\Support\Facades\Auth;
 
 class CommentaireController extends Controller
 {
+    
+     public function __construct()
+    {
+       
+      $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -16,8 +24,7 @@ class CommentaireController extends Controller
      */
     public function index()
     {
-        $lesCommentaires=Commentaire::paginate(20);
-        return view('admin/commentaire/index')->with('lesCommentaires',$lesCommentaires);
+        
     }
 
     /**
@@ -27,7 +34,7 @@ class CommentaireController extends Controller
      */
     public function create()
     {
-     return view('admin/commentaire/create');
+     
     }
 
     /**
@@ -38,26 +45,7 @@ class CommentaireController extends Controller
      */
     public function store(Request $request)
     {
-            $validator = Validator::make($request->all(), [
-            'description' => 'required|max:65532',
-        ]);
-
-        if ($validator->fails()) {
-            return redirect('admin/commentaire/create')
-                        ->withErrors($validator)
-                        ->withInput();
-                    }
-
-         $unCommentaire= new Commentaire();
-         $unCommentaire->description=$request->get('description');
-         //
-         //Comment faire pour que le commentaire soit associé soit à un sujet, soit à une actualité (et pas aux deux)!
-         //
-         
-         $unCommentaire->users()->associate(Auth::user()->id);
-         $unCommentaire->save();
-         $request->session()->flash('success', 'Commentaire ajouté !');
-        return redirect(route('commentaire.index'));
+           
     }
 
     /**
@@ -69,8 +57,7 @@ class CommentaireController extends Controller
     public function show($id)
     {
         //
-          $unCommentaire=Commentaire::find($id);
-        return view('admin/commentaire/show',compact('unCommentaire'));
+          
     }
 
     /**
@@ -81,8 +68,26 @@ class CommentaireController extends Controller
      */
     public function edit($id)
     {
-                $unCommentaire=Commentaire::find($id);
-        return view('admin/commentaire/edit',compact('unCommentaire'));
+                $unCommentaire = Commentaire::find($id);
+        if (Auth::user()->id == $unCommentaire->user->id || Auth::user()->statut == "Admin" || Auth::user()->statut == "Moderateur")
+        {
+             
+                return view('front/commentaire/edit', compact('unCommentaire'));
+        }
+        else
+        {
+            if ($request->ajax())
+                {
+                        return response('Unauthorized.', 401);
+                }
+                else
+                {
+                        $request->session()->flash('error', "Vous n'avez pas les droits nécessaire: vous devez être administrateur ou modérateur !");                         return back();
+                       
+                }
+               
+           
+        }
     }
 
     /**
@@ -94,22 +99,23 @@ class CommentaireController extends Controller
      */
     public function update(Request $request, $id)
     {
-                $validator = Validator::make($request->all(), [
-            'description' => 'required|max:65532',
+                 $validator = Validator::make($request->all(), [
+            'commentaire' => 'required|max:65532|min:20',
         ]);
 
         if ($validator->fails()) {
-            return (route('commentaire.edit', $id)
+            return redirect(route('commentaire.edit', $id))
                         ->withErrors($validator)
-                        ->withInput()
-                    );
+                        ->withInput();
                     }
 
-        $unCommentaire=Commentaire::find($id);
-         $unCommentaire->description=$request->get('description');
+         $unCommentaire= Commentaire::find($id);
+         $unCommentaire->description=$request->get('commentaire');         
+         
+         
          $unCommentaire->update();
-         $request->session()->flash('success', 'Commentaire  modifiée !');
-        return redirect(route('commentaire.index'));   
+         $request->session()->flash('success', 'Le commentaire a été modifié.');
+        return redirect(route('actualite.showFront', $unCommentaire->actualite_id));
     }
 
     /**
@@ -123,5 +129,28 @@ class CommentaireController extends Controller
         Commentaire::destroy($id);
         $request->session()->flash('success', 'Commentaire supprimée !');
         return back();
+    }
+    
+      public function storeFront($idActu, Request $request)
+    {
+            $validator = Validator::make($request->all(), [
+            'commentaire' => 'required|max:65532|min:20',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect(route('actualite.showFront', $idActu))
+                        ->withErrors($validator)
+                        ->withInput();
+                    }
+
+         $unCommentaire= new Commentaire();
+         $unCommentaire->description=$request->get('commentaire');
+         $unCommentaire->signale = false;
+         $unCommentaire->actualite_id = $idActu;
+         $unCommentaire->user()->associate(Auth::user()->id);
+         //dd($unCommentaire);
+         $unCommentaire->save();
+         $request->session()->flash('success', 'Votre commentaire a bien été posté !');
+        return redirect(route('actualite.showFront', $idActu));
     }
 }

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Actualite extends Model
 {
-     public function categories()
+     public function categorie()
     {
        return $this->belongsTo('App\Models\Categorie');
     }
@@ -16,7 +16,7 @@ class Actualite extends Model
        return $this->hasMany('App\Models\Commentaire');
     }
     
-     public function users()
+     public function user()
     {
        return $this->belongsTo('App\Models\User');
     }

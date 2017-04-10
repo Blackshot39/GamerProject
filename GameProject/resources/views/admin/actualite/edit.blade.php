@@ -2,7 +2,7 @@
 @section('content')
 
 
-<h2> Modifier un produit : {{$uneActualite->titre}} </h2>
+<h2> Modifier l'actualité : {{$uneActualite->titre}} </h2>
 
     {!! Form::open(['method'=>'put', 'route' => ['actualite.update', $uneActualite->id],'class' => 'form-horizontal']) !!}
 <div class="well">
@@ -28,7 +28,7 @@
       @endif
 </div>
            <div class="form-group">
-      {!! Form::label('description', 'Description :',['class' => 'col-lg-2 control-label'])!!}
+      {!! Form::label('description', 'Texte :',['class' => 'col-lg-2 control-label'])!!}
       <div class="col-lg-10">
           {!! Form::text('description',$uneActualite->description, ['placeholder' => 'description','class' => 'form-control'])!!}
       </div>
@@ -49,10 +49,10 @@
       @endif
 </div>
         <div class="form-group">
-        {{ Form::label('Categorie') }}
-        {{ Form::select('categorie',$lesCategories,'',['class'=>'form-control']) }}
+        {{ Form::label('categorie', 'Categorie :') }}
+        {{ Form::select('categorie',$lesCategories, $uneActualite->categorie->id,['class'=>'form-control']) }}
     </div>
-<button type="submit" class=" btn btn-primary center-block">Créer</button>
+<button type="submit" class=" btn btn-primary center-block">Modifier</button>
 </div>
 {!! Form::close() !!}
 @stop

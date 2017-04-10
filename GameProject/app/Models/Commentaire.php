@@ -11,12 +11,12 @@ class Commentaire extends Model
 //     	return $this->belongsTo('App\Models\Sujet');
 //     }
     
-    public function actualites()
+    public function actualite()
      {
      	return $this->belongsTo('App\Models\Actualite');
      }
 
-    public function users()
+    public function user()
      {
      	return $this->belongsTo('App\Models\User');
      }

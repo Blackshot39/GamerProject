@@ -16,38 +16,46 @@
                                 <table id="example" class="table table-striped table-bordered table-hover">
                                     <thead>
                                         <tr>
+                                            <th></th>
                                             <th>Nom</th>
                                             <th>Description</th>
                                             <th>Date de sortie</th>
-                                            <th>Photo</th>
-                                            <th></th>
+                                            
+                                             @if(Auth::check())
+                                             <th></th>
+                                             @endif
                                         </tr>
                                     </thead>
                                     <tbody>
                                          @foreach ($lesJeux as $jeu)
                                          <tr> 
-                                             
-                                             <td>{{$jeu["nom"]}}</td>                                                 
+                                             <td>
+                                                 <div class="baguetteBoxFive gallery">
+                                                    <a href="{{url('/').'/images/jeu/normal/'.$jeu->photo}}"><img src="{{url('/').'/images/jeu/mini/'.$jeu->photo}}" class="img-responsive"></a> 
+                                                 </div>
+                                             </td>
+                                             <td><a href="{{route('jeu.showJeu',$jeu->id)}}">{{$jeu["nom"]}}<a/></td>                                                 
                                              <td>{{$jeu["description"]}}</td>
                                              <td>{{$jeu["dateSortie"]}}</td>
-                                             <td><img src="{{url('/').'/images/jeu/mini/'.$jeu->photo}}"> </td>
+                                            @if(Auth::check())
                                              <td> 
                                                  <!--If pour si l'attach existe-->
-                                             
-                                               
-                                             
+                                            
+                                           @if($jeu->users->contains(Auth::user()->id) == true)   
+                                            
                                                {!! Form::open(['route' => ['jeu.retirer', $jeu->id], 'method' => 'put']) !!}
                                                {!! Form::submit('retirer',['class'=>'btn btn-warning']) !!} 
                                                {!! Form::close() !!}
-                                        
+                                            @else
                                                {!! Form::open(['route' => ['jeu.ajouter', $jeu->id], 'method' => 'put']) !!}
                                                {!! Form::submit('ajouter',['class'=>'btn btn-warning']) !!}
                                                {!! Form::close() !!}
-                                             
-                                               <a href="{{route('jeu.showUser',$jeu->id)}}"><button type="button" class="btn btn-success">Voir joueur</button></a>
-                                               
-                                             
+                                            @endif
+                                               <a href="{{route('jeu.showUser',$jeu->id)}}"><button type="button" class="btn btn-primary">Voir joueur</button></a>
+                                              
+                                            
                                              </td>
+                                              @endif
                                          </tr>
                                             @endforeach   
                                     

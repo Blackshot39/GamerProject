@@ -6,10 +6,11 @@
                                 <table id="example" class="table table-striped table-bordered table-hover">
                                     <thead>
                                         <tr>
+                                            <th>Photo</th>
                                             <th>Nom</th>
                                             <th>Description</th>
                                             <th>Date de sortie</th>
-                                            <th>Photo</th>
+                                            <th>Type</th>
                                             <th>Action</th>
                                             
                                         </tr>
@@ -17,11 +18,22 @@
                                     <tbody>
                                          @foreach ($lesJeux as $jeu)
                                          <tr> 
-                                             
+                                             <td>
+                                                 
+                                                 <div class="baguetteBoxFive gallery">
+                                                    <a href="{{url('/').'/images/jeu/normal/'.$jeu->photo}}"><img src="{{url('/').'/images/jeu/mini/'.$jeu->photo}}"> </a>
+                                                 </div>
+                                             </td>
                                              <td>{{$jeu["nom"]}}</td>                                                 
                                              <td>{{$jeu["description"]}}</td>
                                              <td>{{$jeu["dateSortie"]}}</td>
-                                             <td><img src="{{url('/').'/images/jeu/mini/'.$jeu->photo}}"> </td>
+                                             <td>
+                                                 @foreach ($jeu->typeJeus as $type)
+                                                    
+                                                    {{$type->titre}};
+                                                    
+                                                 @endforeach
+                                             </td>
                                              <td> 
                                                  <a data-toggle="modal" data-target="#myModal{{$jeu->id}}"><button type="button" class="btn btn-danger"><i class="fa fa-lg fa-trash"></i></button></a>
                                                  <!-- Modal supprimer -->
