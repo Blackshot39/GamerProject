@@ -58,7 +58,7 @@
                                                 <div class="coupe-block"></div>
 								<div class="user col-xs-4 col-md-3 col-lg-2"> 
                                                                     <div class="user-name"><a href="{{route('user.profilFront', $poste->user->id)}}">{{$poste->user->name}}</a></div>
-                                                                    <div>{{$poste->user->statut}}</div>
+                                                                    <div>{{$poste->user->statut}}</div> 
                                                                     @if($poste->user->avatar != null)
                                                                     <img src="{{url('/images/user/avatar/'.$poste->user->avatar)}}" alt="" class="img-responsive">
                                                                     @else
@@ -73,7 +73,7 @@
                                                                     
 								</div>
                                                             <div class="bloc-message col-xs-8 col-md-9 col-lg-10">
-                                                               {!! nl2br(e($poste->description)) !!}
+                                                               {!! $poste->description !!}
                                                             </div>
 								
                                             </div><!-- /.poste -->

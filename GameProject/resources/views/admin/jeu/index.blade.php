@@ -24,8 +24,8 @@
                                                     <a href="{{url('/').'/images/jeu/normal/'.$jeu->photo}}"><img src="{{url('/').'/images/jeu/mini/'.$jeu->photo}}"> </a>
                                                  </div>
                                              </td>
-                                             <td>{{$jeu["nom"]}}</td>                                                 
-                                             <td>{{$jeu["description"]}}</td>
+                                             <td><a href="{{route('jeu.show',$jeu->id)}}">{{$jeu["nom"]}}</a></td>                                                 
+                                             <td>{!! $jeu["description"] !!}</td>
                                              <td>{{$jeu["dateSortie"]}}</td>
                                              <td>
                                                  @foreach ($jeu->typeJeus as $type)
