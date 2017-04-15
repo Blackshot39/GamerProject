@@ -54,7 +54,39 @@
         
         
         
+ 	<section class="section section-features" id="section-features">
+		<div class="container">
+			<header class="section-head">
+				
+			
+				<h2 class="section-title">Dernier sujet</h2><!-- /.section-title -->
+			</header><!-- /.section-head -->
+			
+			<div class="section-body">
+				<div class="features">
+					<div class="row">					
+                                                <div class="container">
+                         
+                         @foreach ($lesSujets as $sujet)
+<div class="col-md-4 col-sm-4">
+
+        <p><hcom>Titre : </hcom>
+        <hblanc>{{ $sujet->titre }}</hblanc></p>
+
         
-        
+
+</div>
+   
+@endforeach
+</div>                                               
+                                            
+                                            
+                                            
+					</div><!-- /.row -->
+				</div><!-- /.features -->
+			</div><!-- /.section-body -->
+		</div><!-- /.container -->
+	</section><!-- /.section section-features -->       
+
         
 @stop

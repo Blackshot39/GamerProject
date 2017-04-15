@@ -21,8 +21,8 @@
                                          @foreach ($lesActualites as $actualite)
                                          <tr> 
                                              
-                                             <td>{{$actualite["titre"]}}</td>
-                                             <td>{{$actualite["description"]}}</td>
+                                             <td><a href="{{route('actualite.show',$actualite->id)}}">{{$actualite["titre"]}}</a></td>  
+                                             <td>{!! $actualite["description"] !!}</td>
                                              <td>{{$actualite->created_at}}</td>
                                              <td>{{$actualite->categorie->libelle}}</td>
                                              

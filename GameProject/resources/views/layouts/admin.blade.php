@@ -227,7 +227,8 @@
     <script src="{{url('js/jquery.dataTables.min.js')}}"></script>
     <script src="{{url('js/dataTables.bootstrap.min.js')}}"></script>
     
- 
+        <!-- text editor-->
+  <script src="{{url('/js/tinymce/tinymce.min.js')}}"></script>
 
     
     <script>
@@ -262,6 +263,9 @@ if ( typeof oldIE === 'undefined' && Object.keys && typeof hljs !== 'undefined')
 } );
 </script>
     
+ <script>tinymce.init({
+     selector:'#description'   
+ });</script>
 
 </body>
 

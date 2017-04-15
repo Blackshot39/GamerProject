@@ -1,8 +1,26 @@
-<?php
+@extends('layouts.admin')
+@section('content') 
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+        <h2 class="text-center text-uppercase"><u><em>{{$uneActualite->titre}}</em></u></h2><br>
+        </div>
+        <div class="col-md-12">
+            <div class="well">
+                <blockquote>
+                    <p class="lead text-justify">{!! $uneActualite->description !!}</p>
+                
+                    <p>Categorie : {{$uneActualite->categorie->libelle}}  </p>
+                    <p>Créer : {{$uneActualite->created_at}}</p>
+                
+                                                                 
+        
+                </blockquote>
+           </ul>
+            </div>  
+        </div>
+    </div>
+</div>
+@stop
 

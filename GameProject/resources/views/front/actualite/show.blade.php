@@ -37,7 +37,7 @@
                                            <div class="date-actu col-lg-12">{{$uneActu->categorie->libelle}}</div>
                                                     <div class="date-actu col-lg-12">{{$uneActu->created_at}} par <a href="{{route('user.profilFront', $uneActu->user->id)}}">{{$uneActu->user->name}}</a></div>
                                                     
-                                                    <div class="message-actu col-lg-12">{!! nl2br(e($uneActu->description)) !!}</div>
+                                                    <div class="message-actu col-lg-12">{!! $uneActu->description !!}</div>
 								
                                             </div><!-- /.actu -->
                                             
