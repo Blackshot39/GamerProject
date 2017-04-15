@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class User extends Model
 {
@@ -32,5 +33,9 @@ class User extends Model
         return $this->hasMany('App\Models\Actualite');
     }
   
+    public function isOnline()
+    {
+        return Cache::has('user-online-'.$this->id);
+    }
     
 }

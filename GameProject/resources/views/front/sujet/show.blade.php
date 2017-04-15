@@ -70,6 +70,16 @@
                                                                     @else
                                                                     <div>Message : {{$nbPosteOfUser}}</div>  
                                                                     @endif
+                                                                    <div>
+                                                                        @if($poste->user->isOnline() == true)
+                                                                        <div class="connect"></div><div class="co"> Connecté</div>
+                                                                        
+                                                                        <!-- <div class="deco"></div><div class="dec"> Absent</div> -->
+                                                                        @endif
+                                                                    </div>
+                                                                    
+                                                                    
+                                                                    
                                                                     
 								</div>
                                                             <div class="bloc-message col-xs-8 col-md-9 col-lg-10">

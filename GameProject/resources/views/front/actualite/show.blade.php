@@ -68,7 +68,11 @@
                                             
                                             @endif
                                             
-                                            
+                                            @if($lesCom->count() > 1)
+                                            <h3 class="text-left">Commentaires : {{$lesCom->count()}}</h3>
+                                            @else
+                                            <h3 class="text-left">Commentaire : {{$lesCom->count()}}</h3>
+                                            @endif
                                            
                                             <!-- Metre les 3 derniers commentaire + btn afficher les autres en ajax -->
                                             @foreach($lesCom as $unCommentaire)

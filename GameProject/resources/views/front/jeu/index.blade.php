@@ -20,6 +20,7 @@
                                             <th>Nom</th>
                                             <th>Description</th>
                                             <th>Date de sortie</th>
+                                            <th></th>
                                             
                                              @if(Auth::check())
                                              <th></th>
@@ -37,6 +38,13 @@
                                              <td><a href="{{route('jeu.showJeu',$jeu->id)}}">{{$jeu["nom"]}}<a/></td>                                                 
                                              <td>{{$jeu["description"]}}</td>
                                              <td>{{$jeu["dateSortie"]}}</td>
+                                             <td>
+                                                 @foreach ($jeu->typeJeus as $type)
+                                                    
+                                                    {{$type->titre}};
+                                                    
+                                                 @endforeach
+                                             </td>
                                             @if(Auth::check())
                                              <td> 
                                                  <!--If pour si l'attach existe-->

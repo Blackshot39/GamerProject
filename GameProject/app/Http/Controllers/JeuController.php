@@ -184,9 +184,15 @@ class JeuController extends Controller
     
     public function addTypeJeu($id)
     {
+        
         $unJeu=Jeu::find($id);
+        
+      
+        $lesTypes = TypeJeu::with('jeus')->whereDoesntHave('jeus', function($query)
+        use($unJeu){$query->where('nom', $unJeu->nom);})->get();
+     
         $lesTypesJeux=TypeJeu::pluck('titre', 'id');
-        return view ('admin/jeu/addTypeJeu', compact('unJeu','lesTypesJeux'));
+        return view ('admin/jeu/addTypeJeu', compact('unJeu','lesTypesJeux','lesTypes'));
     }
     
     public function storeTypeJeu(Request $request,$id)

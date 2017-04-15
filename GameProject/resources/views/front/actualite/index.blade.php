@@ -16,7 +16,7 @@
 			<header class="section-head">
 				
 			
-				<h2 class="section-title">Actualiés</h2><!-- /.section-title -->
+				<h2 class="section-title">Actualités</h2><!-- /.section-title -->
 			</header><!-- /.section-head -->
 			
                         <div class="section-body">

@@ -5,7 +5,7 @@
 {!! Form::open(['method'=>'put','route' => ['jeu.storeTypeJeu', $unJeu->id ]]) !!}
 <div class="form-group">
          {!! Form::label('titre','titre')!!}
-      {!! Form::select('typeJeu',$lesTypesJeux, null, array('class' => 'form-control'))!!}
+      {!! Form::select('typeJeu',$lesTypes->pluck('titre','id'), null, array('class' => 'form-control'))!!}
 </div>
 <button type="submit" class=" btn btn-primary center-block">ajouter</button>
 {!! Form::close() !!}
