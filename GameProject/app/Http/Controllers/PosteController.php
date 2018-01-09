@@ -10,7 +10,8 @@ use Validator;
 
 class PosteController extends Controller
 {
-    
+    // test
+    // en plus
     public function __construct()
     {
        
