@@ -14,7 +14,7 @@ class PosteController extends Controller
     // en plus
     public function __construct()
     {
-       
+    //  encore  
       $this->middleware('auth');
     }
 
