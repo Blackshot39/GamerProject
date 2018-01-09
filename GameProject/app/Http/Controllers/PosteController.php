@@ -17,7 +17,7 @@ class PosteController extends Controller
     //  encore  
       $this->middleware('auth');
     }
-
+// coucou
     
     
     public function repondre($sujetId, Request $request)
