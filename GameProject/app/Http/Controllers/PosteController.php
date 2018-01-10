@@ -10,14 +10,12 @@ use Validator;
 
 class PosteController extends Controller
 {
-    // test
-    // en plus
+    
     public function __construct()
     {
-    //  encore  
+    
       $this->middleware('auth');
     }
-// coucou
     
     
     public function repondre($sujetId, Request $request)
